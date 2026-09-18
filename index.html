@@ -22,7 +22,7 @@
       property="og:description"
       content="Fast, affordable, mobile-first websites for contractors, restaurants, clinics, salons and agents. Flat-rate packages from $499 with live demos you can browse right now."
     />
-    <meta property="og:image" content="PLACEHOLDER-og-cover.jpg" />
+    <meta property="og:image" content="og-cover.png" />
     <meta property="og:type" content="website" />
 
     <!-- Structured data -->
@@ -56,6 +56,36 @@
           "Python",
           "SQL"
         ]
+      }
+    </script>
+
+    <!-- Structured data: photography add-on service -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Business Photography for Small Business Websites",
+        "serviceType": "On-location business photography",
+        "description": "A 90-minute on-location photo session for local businesses, shot by a professional photographer: 20+ professionally edited images, web-optimized versions plus vertical crops for social media, delivered in five business days with full usage rights. $249 flat, $50 off when booked with any website package.",
+        "provider": {
+          "@type": "Person",
+          "name": "Artur Dymchevskyi",
+          "email": "mailto:arturdymschevskyi@gmail.com"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Toronto",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Ontario"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "249.00",
+          "priceCurrency": "CAD",
+          "availability": "https://schema.org/InStock"
+        }
       }
     </script>
 
@@ -177,7 +207,7 @@
           >
         </a>
 
-        <nav class="hidden items-center gap-9 lg:flex" aria-label="Primary">
+        <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
           <a
             href="#about"
             class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
@@ -192,6 +222,11 @@
             href="#services"
             class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
             >Services</a
+          >
+          <a
+            href="#photography"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >Photography</a
           >
           <a
             href="#contact"
@@ -262,6 +297,11 @@
             href="#services"
             class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
             >Services</a
+          >
+          <a
+            href="#photography"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >Photography</a
           >
           <a
             href="#contact"
@@ -494,19 +534,65 @@
                 </div>
               </div>
 
-              <figure class="order-1 m-0 lg:order-2">
-                <div
-                  class="aspect-video w-full overflow-hidden bg-bronze-soft lg:h-full lg:aspect-auto"
+              <!--
+                Screenshot shown in full: the image keeps its own aspect ratio
+                (1200x563) inside a browser mockup, so nothing is cropped or
+                stretched. The whole mockup links to the live demo.
+              -->
+              <figure
+                class="order-1 m-0 flex flex-col justify-center p-5 sm:p-8 lg:order-2 lg:p-12"
+              >
+                <a
+                  href="https://strata-design.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Open the STRATA studio website in a new tab"
+                  class="group block w-full overflow-hidden rounded-md border border-white/10 bg-espresso shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-1 hover:border-bronze/50"
                 >
+                  <div
+                    class="flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3"
+                  >
+                    <span class="flex shrink-0 gap-1.5" aria-hidden="true">
+                      <span
+                        class="h-2.5 w-2.5 rounded-full bg-bronze/70"
+                      ></span>
+                      <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
+                      <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
+                    </span>
+                    <span
+                      class="hidden truncate rounded-full bg-black/30 px-3 py-1 font-sans text-[0.65rem] text-cream/60 sm:block"
+                      >strata-design.netlify.app</span
+                    >
+                    <svg
+                      class="ml-auto h-3.5 w-3.5 shrink-0 text-cream/50 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                      />
+                    </svg>
+                  </div>
+
                   <img
-                    src="strata.png"
+                    src="strata.jpg"
                     alt="Dark, moody architectural interior hero shot for the STRATA studio site: a dim double-height concrete living space lit by a single warm shaft of late-afternoon light, minimal oak furniture, floor-to-ceiling glass overlooking shadowed pine trees, with the serif STRATA wordmark in the top-left corner."
                     loading="lazy"
-                    width="1600"
-                    height="900"
-                    class="h-full w-full object-cover opacity-90 transition duration-700 hover:scale-[1.03] hover:opacity-100"
+                    width="1200"
+                    height="563"
+                    class="block h-auto w-full opacity-95 transition duration-700 group-hover:opacity-100"
                   />
-                </div>
+                </a>
+
+                <figcaption class="mt-4 text-xs leading-relaxed text-cream/50">
+                  The live STRATA homepage, shown here in full at its real
+                  proportions &mdash; click the preview to open the demo.
+                </figcaption>
               </figure>
             </div>
           </article>
@@ -523,12 +609,12 @@
                   >Starter</span
                 >
                 <img
-                  src="bella-vista.png"
+                  src="bella-vista.jpg"
                   alt="Homepage screenshot of the Bella Vista Trattoria restaurant demo website: a warm cream-and-terracotta hero with a photo of a rustic Italian dining room, the trattoria name in serif type, a 'Reserve a Table' button, and menu-highlight cards below."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="377"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -598,12 +684,12 @@
                   >Starter</span
                 >
                 <img
-                  src="iron-peak.png"
+                  src="iron-peak.jpg"
                   alt="Homepage screenshot of the Iron Peak Fitness gym demo website: a bold dark-and-white hero with a photo of a member lifting a barbell, condensed uppercase headline type, a bright 'Book a Free Trial Class' button, and class-schedule and trainer sections below."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="374"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -673,12 +759,12 @@
                   >Business</span
                 >
                 <img
-                  src="build.png"
+                  src="build.jpg"
                   alt="Homepage screenshot of the Sterling Build Co. contractor demo website: a clean navy-and-white layout with a photo of a finished home renovation, five-link top navigation, a 'Request a Quote' button, and a grid of past-project photos below."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="379"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -748,12 +834,12 @@
                   >Business</span
                 >
                 <img
-                  src="dental.png"
+                  src="dental.jpg"
                   alt="Homepage screenshot of the Maple Dental Care clinic demo website: a calm teal-and-white layout with a photo of a smiling dentist talking to a patient in a bright treatment room, four-link top navigation, a 'Request an Appointment' button, and services and team sections below."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="379"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -823,12 +909,12 @@
                   >Growth</span
                 >
                 <img
-                  src="lumiere.png"
+                  src="lumiere.jpg"
                   alt="Homepage screenshot of the Lumi&egrave;re Salon &amp; Spa demo website: an elegant blush-and-charcoal layout with a photo of a softly lit salon interior, an elegant script-and-serif wordmark, an embedded 'Book an Appointment' widget, and a testimonial carousel below."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="388"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -898,12 +984,12 @@
                   >Growth</span
                 >
                 <img
-                  src="realty.png"
+                  src="realty.jpg"
                   alt="Homepage screenshot of the Harbourview Realty real-estate agent demo website: a polished slate-and-white layout with a photo of a modern waterfront home, a property-search bar, a grid of listing cards with prices and bed/bath counts, and a 'Book a Consultation' button."
                   loading="lazy"
-                  width="1280"
-                  height="720"
-                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  width="800"
+                  height="356"
+                  class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div class="flex flex-1 flex-col p-6">
@@ -1056,6 +1142,19 @@
                   class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
                   >See it live &rarr;</a
                 >
+                <div
+                  class="mt-7 rounded-sm border border-line bg-shell px-4 py-3.5"
+                >
+                  <p class="text-xs leading-relaxed text-ink-muted">
+                    <a
+                      href="#photography"
+                      class="font-semibold text-accent underline-offset-4 transition hover:underline"
+                      >+ Business photo session, $249</a
+                    >
+                    &mdash; just <strong class="text-ink">$199</strong> bundled
+                    with this package. Shot by a professional photographer.
+                  </p>
+                </div>
               </div>
               <a
                 href="#contact"
@@ -1136,6 +1235,19 @@
                   class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
                   >See it live &rarr;</a
                 >
+                <div
+                  class="mt-7 rounded-sm border border-line bg-shell px-4 py-3.5"
+                >
+                  <p class="text-xs leading-relaxed text-ink-muted">
+                    <a
+                      href="#photography"
+                      class="font-semibold text-accent underline-offset-4 transition hover:underline"
+                      >+ Business photo session, $249</a
+                    >
+                    &mdash; just <strong class="text-ink">$199</strong> bundled
+                    with this package. Shot by a professional photographer.
+                  </p>
+                </div>
               </div>
               <a
                 href="#contact"
@@ -1216,6 +1328,19 @@
                   class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
                   >See it live &rarr;</a
                 >
+                <div
+                  class="mt-7 rounded-sm border border-line bg-shell px-4 py-3.5"
+                >
+                  <p class="text-xs leading-relaxed text-ink-muted">
+                    <a
+                      href="#photography"
+                      class="font-semibold text-accent underline-offset-4 transition hover:underline"
+                      >+ Business photo session, $249</a
+                    >
+                    &mdash; just <strong class="text-ink">$199</strong> bundled
+                    with this package. Shot by a professional photographer.
+                  </p>
+                </div>
               </div>
               <a
                 href="#contact"
@@ -1223,6 +1348,320 @@
                 >Get Started</a
               >
             </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PHOTOGRAPHY ADD-ON ============ -->
+      <section id="photography" class="border-b border-line bg-espresso">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+            <!-- Left column -->
+            <div>
+              <p
+                class="reveal inline-flex w-fit items-center gap-2 rounded-full border border-bronze/40 bg-bronze-soft px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-bronze"
+              >
+                <svg
+                  class="h-3 w-3"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"
+                  />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+                One add-on &mdash; $249 flat
+              </p>
+
+              <h2
+                class="reveal mt-6 font-display text-3xl font-semibold tracking-tight text-cream sm:text-4xl"
+              >
+                Add real photos of your business
+              </h2>
+
+              <p class="reveal mt-5 text-lg leading-relaxed text-cream/70">
+                Stock photos are free, and your customers can tell. Faces,
+                rooms, dishes and finished jobs that actually belong to
+                <em class="font-editorial italic text-cream">you</em> make a
+                site feel trustworthy in the first three seconds &mdash; and
+                they are the images Google and social platforms reward.
+              </p>
+
+              <p class="reveal mt-4 text-base leading-relaxed text-cream/70">
+                This is not something I do on the side: the sessions are shot by
+                my wife, a professional photographer. I handle the website, she
+                handles the camera &mdash; so the photos arrive already sized,
+                cropped and named for the pages they will sit on.
+              </p>
+
+              <div
+                class="reveal mt-9 flex flex-wrap items-center gap-x-5 gap-y-3"
+              >
+                <a
+                  href="#contact"
+                  class="inline-flex items-center justify-center rounded-sm bg-bronze px-6 py-3 text-sm font-semibold text-espresso transition hover:-translate-y-px hover:bg-bronze/90"
+                  >Book a session &rarr;</a
+                >
+                <span class="text-sm text-cream/60"
+                  >or mention &ldquo;photography&rdquo; in the form below</span
+                >
+              </div>
+
+              <div class="reveal mt-10 border-t border-white/10 pt-8">
+                <h3
+                  class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-cream/50"
+                >
+                  Where you&rsquo;ll use them
+                </h3>
+                <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Your homepage hero
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Google Business Profile
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Services &amp; menu pages
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Instagram &amp; Facebook posts
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Flyers, menus &amp; print
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Local ads &amp; directories
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Right column: price card -->
+            <div class="reveal lg:pt-2">
+              <div
+                class="rounded-md border border-white/10 bg-white/5 p-8 sm:p-10"
+              >
+                <h3
+                  class="font-display text-lg font-semibold tracking-tight text-cream"
+                >
+                  Business photo session
+                </h3>
+
+                <p
+                  class="mt-4 flex items-baseline gap-2 font-display text-5xl font-bold tracking-tight text-cream"
+                >
+                  $249
+                  <span class="font-sans text-sm font-medium text-cream/50"
+                    >flat</span
+                  >
+                </p>
+
+                <p class="mt-4 text-sm leading-relaxed text-cream/70">
+                  One flat price, whatever you need shot &mdash; no hourly rate,
+                  no per-image charges, no surprise editing fees.
+                </p>
+
+                <div
+                  class="mt-6 rounded-sm border border-bronze/30 bg-bronze-soft px-4 py-3.5"
+                >
+                  <p class="text-sm leading-relaxed text-cream/80">
+                    <span
+                      class="font-display font-semibold uppercase tracking-[0.1em] text-bronze"
+                      >Bundle &amp; save $50</span
+                    >
+                    &mdash; book the session with any website package and the
+                    add-on is
+                    <span class="font-semibold text-cream"
+                      >$199 instead of $249</span
+                    >. One trip to your location, one invoice, and photos that
+                    land in the layout instead of being squeezed into it later.
+                  </p>
+                </div>
+
+                <ul class="mt-8 space-y-3.5">
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Up to 90 minutes on location, at your business
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    20+ professionally edited images
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Web-ready versions, compressed so your site stays fast
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Vertical crops for Stories, Reels and posts
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Delivered in 5 business days, yours to use anywhere
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Shot by a professional photographer &mdash; not a web
+                    developer with a phone
+                  </li>
+                </ul>
+
+                <a
+                  href="#contact"
+                  class="mt-8 inline-flex w-full items-center justify-center rounded-sm border border-bronze px-5 py-3 text-sm font-semibold text-bronze transition hover:-translate-y-px hover:bg-bronze hover:text-espresso"
+                  >Add photography to my project</a
+                >
+
+                <p class="mt-4 text-xs leading-relaxed text-cream/45">
+                  Also available on its own, without a website &mdash; $249
+                  flat.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1306,6 +1745,41 @@
                     <option value="Growth">Growth</option>
                     <option value="Not sure yet" selected>Not sure yet</option>
                   </select>
+                </div>
+
+                <div class="mt-6">
+                  <label
+                    for="photography-addon"
+                    class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                    >Photography add-on</label
+                  >
+                  <select
+                    id="photography-addon"
+                    name="photography"
+                    class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink transition focus:border-accent focus:outline-none"
+                  >
+                    <option value="Website only" selected>
+                      No &mdash; website only
+                    </option>
+                    <option value="Photography bundled ($199 with a package)">
+                      Yes &mdash; bundle with my website ($199)
+                    </option>
+                    <option value="Photography only ($249)">
+                      Yes &mdash; photo session only ($249)
+                    </option>
+                    <option value="Tell me more about photography">
+                      Not sure &mdash; tell me more
+                    </option>
+                  </select>
+                  <p class="mt-2 text-xs text-ink-muted">
+                    20+ edited photos of your business, shot by a professional
+                    photographer &mdash;
+                    <a
+                      href="#photography"
+                      class="font-medium text-accent underline-offset-4 transition hover:underline"
+                      >details here</a
+                    >.
+                  </p>
                 </div>
 
                 <div class="mt-6">
