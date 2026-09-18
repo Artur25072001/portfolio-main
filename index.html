@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+      Artur Dymchevskyi — Fullstack Developer | Affordable Websites for Small
+      Businesses
+    </title>
+    <meta
+      name="description"
+      content="Artur Dymchevskyi is a fullstack developer building fast, affordable, mobile-first websites for small local businesses — flat-rate packages from $499, live in days, not months."
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Artur Dymchevskyi — Fullstack Developer | Affordable Websites for Small Businesses"
+    />
+    <meta
+      property="og:description"
+      content="Fast, affordable, mobile-first websites for contractors, restaurants, clinics, salons and agents. Flat-rate packages from $499 with live demos you can browse right now."
+    />
+    <meta property="og:image" content="PLACEHOLDER-og-cover.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Artur Dymchevskyi",
+        "jobTitle": "Fullstack Developer",
+        "description": "Fullstack developer building affordable, mobile-first websites for small local businesses.",
+        "email": "mailto:arturdymschevskyi@gmail.com",
+        "url": "https://github.com/Artur25072001",
+        "sameAs": [
+          "https://github.com/Artur25072001",
+          "https://www.linkedin.com/in/artur-dymchevskyi-208962333/"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Toronto",
+          "addressRegion": "ON",
+          "addressCountry": "CA"
+        },
+        "knowsAbout": [
+          "HTML",
+          "CSS",
+          "Tailwind CSS",
+          "JavaScript",
+          "Node.js",
+          "Express.js",
+          "Java",
+          "Python",
+          "SQL"
+        ]
+      }
+    </script>
+
+    <!-- Fonts: Sora (headings) + Inter (body) — 2 families total -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: {
+                DEFAULT: "#1D4ED8",
+                dark: "#17399E",
+                soft: "#EDF2FD",
+                mid: "#CBD9F7",
+              },
+              ink: { DEFAULT: "#1B1B19", muted: "#5E5E58" },
+              shell: "#FAFAF8",
+              line: "#E7E7E1",
+              espresso: "#131311",
+              cream: "#F4EFE7",
+              bronze: { DEFAULT: "#C0873F", soft: "#2A231B" },
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              display: [
+                "Sora",
+                "Inter",
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+              ],
+              editorial: ["Georgia", "'Times New Roman'", "Times", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      [id] {
+        scroll-margin-top: 6rem;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s ease-out,
+          transform 0.7s ease-out;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid #1d4ed8;
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+      ::selection {
+        background: #1d4ed8;
+        color: #ffffff;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      </style>
+    </noscript>
+  </head>
+
+  <body id="top" class="bg-white font-sans text-ink antialiased">
+    <!-- ============ HEADER (sticky) ============ -->
+    <header
+      id="site-header"
+      class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur"
+    >
+      <div
+        class="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-5 sm:px-8"
+      >
+        <a
+          href="#top"
+          class="flex items-center gap-2.5"
+          aria-label="Artur Dymchevskyi — back to top"
+        >
+          <span
+            class="flex h-9 w-9 items-center justify-center rounded-sm bg-accent font-display text-sm font-semibold text-white"
+            >AD</span
+          >
+          <span
+            class="font-display text-[0.95rem] font-semibold tracking-tight text-ink"
+            >Artur&nbsp;Dymchevskyi</span
+          >
+        </a>
+
+        <nav class="hidden items-center gap-9 lg:flex" aria-label="Primary">
+          <a
+            href="#about"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >About</a
+          >
+          <a
+            href="#work"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >Work</a
+          >
+          <a
+            href="#services"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >Services</a
+          >
+          <a
+            href="#contact"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >Contact</a
+          >
+          <a
+            href="#contact"
+            class="rounded-sm bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
+            >Get in Touch</a
+          >
+        </nav>
+
+        <button
+          id="menu-toggle"
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-sm text-ink transition-colors hover:text-accent lg:hidden"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Toggle navigation menu"
+        >
+          <svg
+            id="icon-open"
+            class="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg
+            id="icon-close"
+            class="hidden h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden border-t border-line bg-white lg:hidden"
+      >
+        <nav
+          class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4 sm:px-8"
+          aria-label="Mobile"
+        >
+          <a
+            href="#about"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >About</a
+          >
+          <a
+            href="#work"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >Work</a
+          >
+          <a
+            href="#services"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >Services</a
+          >
+          <a
+            href="#contact"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >Contact</a
+          >
+          <a
+            href="#contact"
+            class="mt-2 rounded-sm bg-accent px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-accent-dark"
+            >Get in Touch</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="border-b border-line bg-shell">
+        <div class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28 lg:py-32">
+          <div class="max-w-3xl">
+            <p
+              class="reveal font-display text-xs font-semibold uppercase tracking-[0.18em] text-accent"
+            >
+              Artur Dymchevskyi &middot; Fullstack Developer &middot; Toronto,
+              ON
+            </p>
+
+            <h1
+              class="reveal mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-6xl"
+            >
+              Create an app for your business<span class="text-accent">
+                &mdash; and get found by more customers.</span
+              >
+            </h1>
+
+            <p
+              class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted"
+            >
+              I build fast, affordable, mobile-first websites for local
+              businesses &mdash; contractors, restaurants, clinics, salons, and
+              agents. Professional design, flat-rate pricing, and a launch
+              measured in days, not months.
+            </p>
+
+            <div
+              class="reveal mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
+            >
+              <a
+                href="#work"
+                class="inline-flex items-center justify-center rounded-sm border border-line bg-white px-7 py-3.5 text-sm font-semibold text-ink transition hover:-translate-y-px hover:border-accent hover:text-accent"
+                >See My Work</a
+              >
+              <a
+                href="#contact"
+                class="inline-flex items-center justify-center rounded-sm bg-accent px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
+                >Get a Free Quote</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABOUT ============ -->
+      <section id="about" class="border-b border-line">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="max-w-3xl">
+            <h2
+              class="reveal font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            >
+              About me
+            </h2>
+            <div
+              class="reveal mt-6 space-y-4 text-lg leading-relaxed text-ink-muted"
+            >
+              <p>
+                I&rsquo;m a Software Engineering student from Ukraine, now
+                working out of Toronto. I love solving complex problems, writing
+                clean code, and working on side projects that challenge my
+                engineering skills.
+              </p>
+              <p>
+                Today I put that same discipline to work for local businesses
+                &mdash; contractors, restaurants, clinics, salons, and
+                real-estate agents who need a website that looks established and
+                turns visitors into bookings.
+              </p>
+              <p>
+                Because I work solo with a focused stack and proven starting
+                points, the process stays fast and predictable: one point of
+                contact, a flat quote up front, and a site that&rsquo;s live in
+                days.
+              </p>
+            </div>
+          </div>
+
+          <div class="reveal mt-12">
+            <h3
+              class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+            >
+              What I build with
+            </h3>
+            <ul class="mt-4 flex flex-wrap gap-2.5">
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                HTML
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                CSS
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                Tailwind CSS
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                JavaScript
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                Node.js
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                Express.js
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                Java
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                Python
+              </li>
+              <li
+                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+              >
+                SQL
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORK ============ -->
+      <section id="work" class="border-b border-line bg-shell">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="max-w-3xl">
+            <h2
+              class="reveal font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            >
+              See what your website could look like
+            </h2>
+            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+              These are live demo sites &mdash; click any of them and browse the
+              way your customers would. Six are built across the most common
+              local-business industries, plus one fully custom passion project
+              with no budget cap.
+            </p>
+          </div>
+
+          <!-- Featured project — the one deliberate dark/editorial contrast on the page -->
+          <article class="reveal mt-12 overflow-hidden rounded-md bg-espresso">
+            <div class="grid lg:grid-cols-2">
+              <div
+                class="order-2 flex flex-col justify-center p-8 sm:p-12 lg:order-1 lg:p-14"
+              >
+                <p
+                  class="inline-flex w-fit items-center gap-2 rounded-full border border-bronze/40 bg-bronze-soft px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-bronze"
+                >
+                  <svg
+                    class="h-3 w-3"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M12 2l2.9 6.26L21.5 9.3l-4.75 4.63 1.13 6.57L12 17.4l-5.88 3.1L7.25 13.93 2.5 9.3l6.6-1.04L12 2z"
+                    />
+                  </svg>
+                  Featured &mdash; No Budget Cap
+                </p>
+
+                <h3
+                  class="mt-6 font-editorial text-3xl font-normal italic leading-tight text-cream sm:text-4xl"
+                >
+                  STRATA<span
+                    class="mt-2 block not-italic font-sans text-base font-normal uppercase tracking-[0.22em] text-cream/50"
+                    >Architecture &amp; Interior Design Studio</span
+                  >
+                </h3>
+
+                <p
+                  class="mt-6 max-w-md text-base leading-relaxed text-cream/70"
+                >
+                  A fully custom, high-end studio site with bespoke motion
+                  design, a cursor-follow project preview, and an editorial dark
+                  aesthetic &mdash; no template, no budget cap.
+                </p>
+
+                <div class="mt-9">
+                  <a
+                    href="https://strata-design.netlify.app"
+                    target="_blank"
+                    rel="noopener"
+                    class="group inline-flex items-center gap-2.5 rounded-sm bg-bronze px-6 py-3 text-sm font-semibold text-espresso transition hover:-translate-y-px hover:bg-bronze/90"
+                  >
+                    View Live Demo
+                    <svg
+                      class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <figure class="order-1 m-0 lg:order-2">
+                <div
+                  class="aspect-video w-full overflow-hidden bg-bronze-soft lg:h-full lg:aspect-auto"
+                >
+                  <img
+                    src="strata.png"
+                    alt="Dark, moody architectural interior hero shot for the STRATA studio site: a dim double-height concrete living space lit by a single warm shaft of late-afternoon light, minimal oak furniture, floor-to-ceiling glass overlooking shadowed pine trees, with the serif STRATA wordmark in the top-left corner."
+                    loading="lazy"
+                    width="1600"
+                    height="900"
+                    class="h-full w-full object-cover opacity-90 transition duration-700 hover:scale-[1.03] hover:opacity-100"
+                  />
+                </div>
+              </figure>
+            </div>
+          </article>
+
+          <!-- Demo grid -->
+          <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <!-- 1. Restaurant / Starter -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent-soft px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent-dark"
+                  >Starter</span
+                >
+                <img
+                  src="bella-vista.png"
+                  alt="Homepage screenshot of the Bella Vista Trattoria restaurant demo website: a warm cream-and-terracotta hero with a photo of a rustic Italian dining room, the trattoria name in serif type, a 'Reserve a Table' button, and menu-highlight cards below."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Restaurant
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Bella Vista Trattoria &mdash; Restaurant Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A warm, appetite-driving one-page site with menu highlights,
+                  hours, and a reservation-style CTA.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://bella-vista-trattori.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- 2. Fitness / Gym / Starter -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent-soft px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent-dark"
+                  >Starter</span
+                >
+                <img
+                  src="iron-peak.png"
+                  alt="Homepage screenshot of the Iron Peak Fitness gym demo website: a bold dark-and-white hero with a photo of a member lifting a barbell, condensed uppercase headline type, a bright 'Book a Free Trial Class' button, and class-schedule and trainer sections below."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Fitness / Gym
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Iron Peak Fitness &mdash; Gym Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A high-energy one-page site built to drive free-trial-class
+                  sign-ups.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://iron-peak-fitness.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- 3. Contractor / Business -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent-mid px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent-dark"
+                  >Business</span
+                >
+                <img
+                  src="build.png"
+                  alt="Homepage screenshot of the Sterling Build Co. contractor demo website: a clean navy-and-white layout with a photo of a finished home renovation, five-link top navigation, a 'Request a Quote' button, and a grid of past-project photos below."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Contractor
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Sterling Build Co. &mdash; Contractor Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A 5-page site with a past-projects gallery and a detailed
+                  quote-request form.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://sterling-build.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- 4. Dental / Medical / Business -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent-mid px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent-dark"
+                  >Business</span
+                >
+                <img
+                  src="dental.png"
+                  alt="Homepage screenshot of the Maple Dental Care clinic demo website: a calm teal-and-white layout with a photo of a smiling dentist talking to a patient in a bright treatment room, four-link top navigation, a 'Request an Appointment' button, and services and team sections below."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Dental / Medical
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Maple Dental Care &mdash; Clinic Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A reassuring, patient-friendly 4-page site with services,
+                  team, and appointment requests.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://maple-dental-care.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- 5. Salon / Spa / Growth -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white"
+                  >Growth</span
+                >
+                <img
+                  src="lumiere.png"
+                  alt="Homepage screenshot of the Lumi&egrave;re Salon &amp; Spa demo website: an elegant blush-and-charcoal layout with a photo of a softly lit salon interior, an elegant script-and-serif wordmark, an embedded 'Book an Appointment' widget, and a testimonial carousel below."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Salon / Spa
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Lumi&egrave;re Salon &amp; Spa &mdash; Salon Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A multi-page site with embedded booking, a testimonial
+                  section, and advanced local SEO.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://lumier-salon-spa.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- 6. Real Estate / Growth -->
+            <article
+              class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
+            >
+              <div class="relative aspect-video overflow-hidden bg-shell">
+                <span
+                  class="absolute left-3 top-3 z-10 rounded-full bg-accent px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white"
+                  >Growth</span
+                >
+                <img
+                  src="realty.png"
+                  alt="Homepage screenshot of the Harbourview Realty real-estate agent demo website: a polished slate-and-white layout with a photo of a modern waterfront home, a property-search bar, a grid of listing cards with prices and bed/bath counts, and a 'Book a Consultation' button."
+                  loading="lazy"
+                  width="1280"
+                  height="720"
+                  class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p
+                  class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+                >
+                  Real Estate
+                </p>
+                <h3
+                  class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+                >
+                  Harbourview Realty &mdash; Agent Website Demo
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                  A listings-focused site with consultation booking, client
+                  testimonials, and full SEO schema.
+                </p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    HTML
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    Tailwind CSS
+                  </li>
+                  <li
+                    class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                  >
+                    JavaScript
+                  </li>
+                </ul>
+                <a
+                  href="https://harbourview-realty.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-dark"
+                >
+                  View Live Demo
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SERVICES ============ -->
+      <section id="services" class="border-b border-line">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="max-w-3xl">
+            <h2
+              class="reveal font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            >
+              Flat-rate packages, no surprises
+            </h2>
+            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+              One price, agreed up front &mdash; no hourly billing and no
+              creeping invoices. Pick the tier that matches where your business
+              is today, and click &ldquo;See it live&rdquo; to see exactly
+              what&rsquo;s included.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-8 md:grid-cols-3">
+            <!-- Starter -->
+            <article
+              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+            >
+              <div class="flex flex-1 flex-col">
+                <h3
+                  class="font-display text-lg font-semibold tracking-tight text-ink"
+                >
+                  Starter
+                </h3>
+                <p
+                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                >
+                  $499<span
+                    class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                    >flat</span
+                  >
+                </p>
+                <ul class="mt-7 space-y-3">
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    1&ndash;2 pages, mobile-first design
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Contact form + Google Maps
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Basic SEO setup
+                  </li>
+                </ul>
+                <a
+                  href="https://bella-vista-trattori.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+                  >See it live &rarr;</a
+                >
+              </div>
+              <a
+                href="#contact"
+                class="mt-8 inline-flex items-center justify-center rounded-sm border border-accent px-5 py-3 text-sm font-semibold text-accent transition hover:-translate-y-px hover:bg-accent hover:text-white"
+                >Get Started</a
+              >
+            </article>
+
+            <!-- Business -->
+            <article
+              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+            >
+              <div class="flex flex-1 flex-col">
+                <h3
+                  class="font-display text-lg font-semibold tracking-tight text-ink"
+                >
+                  Business
+                </h3>
+                <p
+                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                >
+                  $799<span
+                    class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                    >flat</span
+                  >
+                </p>
+                <ul class="mt-7 space-y-3">
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    4&ndash;5 pages, custom design
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Services showcase + quote form
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Google Business setup, Analytics &amp; SEO
+                  </li>
+                </ul>
+                <a
+                  href="https://sterling-build.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+                  >See it live &rarr;</a
+                >
+              </div>
+              <a
+                href="#contact"
+                class="mt-8 inline-flex items-center justify-center rounded-sm border border-accent px-5 py-3 text-sm font-semibold text-accent transition hover:-translate-y-px hover:bg-accent hover:text-white"
+                >Get Started</a
+              >
+            </article>
+
+            <!-- Growth -->
+            <article
+              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+            >
+              <div class="flex flex-1 flex-col">
+                <h3
+                  class="font-display text-lg font-semibold tracking-tight text-ink"
+                >
+                  Growth
+                </h3>
+                <p
+                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                >
+                  $1,199<span
+                    class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                    >flat</span
+                  >
+                </p>
+                <ul class="mt-7 space-y-3">
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    5&ndash;8 pages, advanced SEO
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Booking system + review integration
+                  </li>
+                  <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+                    <svg
+                      class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    Speed optimization + content assistance
+                  </li>
+                </ul>
+                <a
+                  href="https://lumier-salon-spa.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="mt-6 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+                  >See it live &rarr;</a
+                >
+              </div>
+              <a
+                href="#contact"
+                class="mt-8 inline-flex items-center justify-center rounded-sm border border-accent px-5 py-3 text-sm font-semibold text-accent transition hover:-translate-y-px hover:bg-accent hover:text-white"
+                >Get Started</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section id="contact" class="border-b border-line bg-shell">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="max-w-3xl">
+            <h2
+              class="reveal font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            >
+              Get a free quote
+            </h2>
+            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+              Tell me a little about your business and I&rsquo;ll reply within
+              one business day with a flat price and a timeline &mdash; no
+              obligation, no sales pressure.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-12 lg:grid-cols-5 lg:gap-16">
+            <!-- Netlify form -->
+            <div class="reveal lg:col-span-3">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                class="rounded-md border border-line bg-white p-6 sm:p-8"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+
+                <div class="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <label
+                      for="name"
+                      class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                      >Name</label
+                    >
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      autocomplete="name"
+                      placeholder="Jane Rossi"
+                      class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="email"
+                      class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      autocomplete="email"
+                      placeholder="jane@business.com"
+                      class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <label
+                    for="project-type"
+                    class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                    >Project type</label
+                  >
+                  <select
+                    id="project-type"
+                    name="project-type"
+                    required
+                    class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink transition focus:border-accent focus:outline-none"
+                  >
+                    <option value="Starter">Starter</option>
+                    <option value="Business">Business</option>
+                    <option value="Growth">Growth</option>
+                    <option value="Not sure yet" selected>Not sure yet</option>
+                  </select>
+                </div>
+
+                <div class="mt-6">
+                  <label
+                    for="message"
+                    class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                    >Message</label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                    placeholder="What does your business do, and what do you want your website to get you?"
+                    class="mt-2.5 w-full resize-y rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  class="mt-8 inline-flex w-full items-center justify-center rounded-sm bg-accent px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark sm:w-auto"
+                >
+                  Send Message
+                </button>
+                <p class="mt-4 text-xs leading-relaxed text-ink-muted">
+                  Your details are only used to reply to your enquiry.
+                </p>
+              </form>
+            </div>
+
+            <!-- Contact details -->
+            <div class="reveal lg:col-span-2">
+              <h3
+                class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+              >
+                Direct contact
+              </h3>
+              <a
+                href="mailto:arturdymschevskyi@gmail.com"
+                class="group mt-4 flex items-start gap-3.5"
+              >
+                <svg
+                  class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="6" width="18" height="12" rx="1.5" />
+                  <path d="M3.6 6.9L12 13l8.4-6.1" />
+                </svg>
+                <span>
+                  <span
+                    class="block text-xs uppercase tracking-[0.12em] text-ink-muted"
+                    >Email</span
+                  >
+                  <span
+                    class="mt-1 block break-all text-base font-medium text-ink underline-offset-4 transition group-hover:text-accent group-hover:underline"
+                    >arturdymschevskyi@gmail.com</span
+                  >
+                </span>
+              </a>
+
+              <h3
+                class="mt-10 font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+              >
+                Elsewhere
+              </h3>
+              <div class="mt-4 flex gap-3">
+                <a
+                  href="https://github.com/Artur25072001"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Artur Dymchevskyi on GitHub"
+                  class="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-line text-ink-muted transition hover:-translate-y-px hover:border-accent hover:text-accent"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 015.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0023.5 12C23.5 5.73 18.27.5 12 .5z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/artur-dymchevskyi-208962333/"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Artur Dymchevskyi on LinkedIn"
+                  class="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-line text-ink-muted transition hover:-translate-y-px hover:border-accent hover:text-accent"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+                    />
+                  </svg>
+                </a>
+              </div>
+
+              <h3
+                class="mt-10 font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+              >
+                Based in
+              </h3>
+              <p
+                class="mt-4 flex items-start gap-3.5 text-sm leading-relaxed text-ink-muted"
+              >
+                <svg
+                  class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z" />
+                  <circle cx="12" cy="10" r="2.5" />
+                </svg>
+                Toronto, ON &mdash; working in Eastern Time, available for
+                remote projects across North America.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-white">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between"
+      >
+        <div>
+          <p class="text-sm text-ink-muted">
+            &copy; 2026 Artur Dymchevskyi. All rights reserved.
+          </p>
+          <p class="mt-1.5 text-sm text-ink-muted">
+            Affordable, professional websites that bring local businesses more
+            customers.
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <a
+            href="https://github.com/Artur25072001"
+            target="_blank"
+            rel="noopener"
+            aria-label="Artur Dymchevskyi on GitHub"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-muted transition hover:-translate-y-px hover:border-accent hover:text-accent"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 015.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0023.5 12C23.5 5.73 18.27.5 12 .5z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/artur-dymchevskyi-208962333/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Artur Dymchevskyi on LinkedIn"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-muted transition hover:-translate-y-px hover:border-accent hover:text-accent"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* 1. Mobile hamburger menu */
+        var toggle = document.getElementById("menu-toggle");
+        var menu = document.getElementById("mobile-menu");
+        var iconOpen = document.getElementById("icon-open");
+        var iconClose = document.getElementById("icon-close");
+
+        function setMenu(isOpen) {
+          menu.classList.toggle("hidden", !isOpen);
+          iconOpen.classList.toggle("hidden", isOpen);
+          iconClose.classList.toggle("hidden", !isOpen);
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          toggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation menu" : "Open navigation menu",
+          );
+        }
+
+        toggle.addEventListener("click", function () {
+          setMenu(menu.classList.contains("hidden"));
+        });
+
+        /* 2. Smooth scroll to anchor links */
+        var header = document.getElementById("site-header");
+        var reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        Array.prototype.forEach.call(
+          document.querySelectorAll('a[href^="#"]'),
+          function (link) {
+            link.addEventListener("click", function (event) {
+              var id = link.getAttribute("href");
+              if (!id || id === "#") {
+                return;
+              }
+              var target = document.querySelector(id);
+              if (!target) {
+                return;
+              }
+              event.preventDefault();
+              setMenu(false);
+              var offset = header.offsetHeight + 16;
+              var top =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                offset;
+              window.scrollTo({
+                top: Math.max(top, 0),
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
+            });
+          },
+        );
+
+        /* 3. Scroll-triggered fade-in for section reveals */
+        var revealItems = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+          );
+
+          Array.prototype.forEach.call(revealItems, function (item) {
+            observer.observe(item);
+          });
+        } else {
+          Array.prototype.forEach.call(revealItems, function (item) {
+            item.classList.add("is-visible");
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
