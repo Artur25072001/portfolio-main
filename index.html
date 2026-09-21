@@ -10,7 +10,7 @@
     </title>
     <meta
       name="description"
-      content="Artur Dymchevskyi is a fullstack developer building fast, affordable, mobile-first websites for small local businesses — flat-rate packages from $499, live in days, not months."
+      content="Artur Dymchevskyi is a fullstack developer building fast, affordable, mobile-first websites for small local businesses — flat-rate packages from $499 CAD, plus ongoing care plans from $50/month that keep the site secure, updated and online."
     />
 
     <!-- Open Graph -->
@@ -20,7 +20,7 @@
     />
     <meta
       property="og:description"
-      content="Fast, affordable, mobile-first websites for contractors, restaurants, clinics, salons and agents. Flat-rate packages from $499 with live demos you can browse right now."
+      content="Fast, affordable, mobile-first websites for contractors, restaurants, clinics, salons and agents. Flat-rate packages from $499 CAD, care plans from $50/month, and live demos you can browse right now."
     />
     <meta property="og:image" content="og-cover.png" />
     <meta property="og:type" content="website" />
@@ -66,7 +66,7 @@
         "@type": "Service",
         "name": "Business Photography for Small Business Websites",
         "serviceType": "On-location business photography",
-        "description": "A 90-minute on-location photo session for local businesses, shot by a professional photographer: 20+ professionally edited images, web-optimized versions plus vertical crops for social media, delivered in five business days with full usage rights. $249 flat, $50 off when booked with any website package.",
+        "description": "A 90-minute on-location photo session for local businesses, shot by a professional photographer: 20+ professionally edited images, web-optimized versions plus vertical crops for social media, delivered in five business days with full usage rights. $249 CAD flat, $50 CAD off when booked with any website package.",
         "provider": {
           "@type": "Person",
           "name": "Artur Dymchevskyi",
@@ -86,6 +86,164 @@
           "priceCurrency": "CAD",
           "availability": "https://schema.org/InStock"
         }
+      }
+    </script>
+
+    <!-- Structured data: monthly website care plans -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Website Care Plans for Small Businesses",
+        "serviceType": "Website maintenance and support subscription",
+        "description": "Monthly care plans from $50 CAD: hosting, SSL, daily backups, security updates, uptime monitoring, emergency repairs and small content updates, with no contract and cancel anytime. Yearly billing gives twelve months for the price of ten.",
+        "provider": {
+          "@type": "Person",
+          "name": "Artur Dymchevskyi",
+          "email": "mailto:arturdymschevskyi@gmail.com"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Toronto",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Ontario"
+          }
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Website care plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Essential care plan",
+              "description": "For 1-2 page sites: hosting, SSL, daily backups, security updates, uptime monitoring, emergency repairs, one small content change up to 30 minutes per month, replies within two business days, domain renewal covered up to $25 CAD a year.",
+              "price": "50.00",
+              "priceCurrency": "CAD",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "50.00",
+                "priceCurrency": "CAD",
+                "billingDuration": "P1M",
+                "billingIncrement": 1,
+                "unitCode": "MON"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Plus care plan",
+              "description": "For 4-5 page sites: everything in Essential plus up to three content changes up to 90 minutes per month, one Google Business Profile post a month, a short monthly report, two seasonal refreshes a year and replies within one business day.",
+              "price": "75.00",
+              "priceCurrency": "CAD",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "75.00",
+                "priceCurrency": "CAD",
+                "billingDuration": "P1M",
+                "billingIncrement": 1,
+                "unitCode": "MON"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Complete care plan",
+              "description": "For 5-8 page sites: everything in Plus plus up to six content changes up to four hours per month, one new page or section each quarter, two Google Business Profile posts plus review replies, four seasonal refreshes a year, a detailed monthly report and same-day replies.",
+              "price": "150.00",
+              "priceCurrency": "CAD",
+              "availability": "https://schema.org/InStock",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "150.00",
+                "priceCurrency": "CAD",
+                "billingDuration": "P1M",
+                "billingIncrement": 1,
+                "unitCode": "MON"
+              }
+            }
+          ]
+        }
+      }
+    </script>
+
+    <!-- Structured data: rescue audit for sites built elsewhere -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Website Rescue Audit",
+        "serviceType": "Website audit and onboarding for existing websites",
+        "description": "A one-time $199 CAD flat audit for websites built by someone else: security, speed, mobile layout, forms and Google setup are reviewed, critical issues are fixed, backups and monitoring are put in place, and you get a written report. Emergency repairs are covered by a care plan only after this audit, and the $199 is credited toward a new build if the site is beyond saving.",
+        "provider": {
+          "@type": "Person",
+          "name": "Artur Dymchevskyi",
+          "email": "mailto:arturdymschevskyi@gmail.com"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Toronto",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Ontario"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "199.00",
+          "priceCurrency": "CAD",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
+
+    <!-- Structured data: care plan FAQ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What counts as a small content change?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Updating text, prices, hours or staff names, swapping photos, adding or editing a menu item, adding a review, fixing a typo or a broken link, and small banner refreshes. One request counts as one change, and unused time does not carry over to the next month. New pages, redesigns, e-commerce, third-party integrations and full SEO campaigns are quoted separately."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I need something bigger than my plan covers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "I quote a flat price before starting, so you always approve the number first. A single change outside your plan is $75 CAD flat and a new page is $250 CAD flat. The Complete plan includes one new page or section every quarter."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I cancel my care plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Plans run month to month with no contract and no cancellation fee. If you leave, the files, the domain and the hosting access are transferred to you, and every plan starts with a 30-day money-back guarantee."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "My website was built by someone else. Can I still get a care plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Sites built in WordPress, Wix or by hand can move onto a care plan after a one-time Website Rescue Audit of $199 CAD flat, which fixes what is critical and sets up backups and monitoring. Emergency repairs are covered only after that audit. If the site is beyond saving, the $199 is credited toward a new build."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if my website breaks at 2 a.m.?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Uptime and security are monitored around the clock and emergency repairs are included in every plan, so there is no extra invoice for putting the site back online. You can reach me any day of the week, and reply times are two business days on Essential, one business day on Plus and the same day on Complete."
+            }
+          }
+        ]
       }
     </script>
 
@@ -153,6 +311,7 @@
       }
       a:focus-visible,
       button:focus-visible,
+      summary:focus-visible,
       input:focus-visible,
       select:focus-visible,
       textarea:focus-visible {
@@ -163,6 +322,25 @@
       ::selection {
         background: #1d4ed8;
         color: #ffffff;
+      }
+      /* Native accordion used by the care-plan FAQ */
+      details > summary {
+        cursor: pointer;
+        list-style: none;
+      }
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      details > summary .faq-chevron {
+        transition: transform 0.2s ease-out;
+      }
+      details[open] > summary .faq-chevron {
+        transform: rotate(180deg);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        details > summary .faq-chevron {
+          transition: none;
+        }
       }
       @media (prefers-reduced-motion: reduce) {
         .reveal {
@@ -227,6 +405,11 @@
             href="#photography"
             class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
             >Photography</a
+          >
+          <a
+            href="#care"
+            class="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+            >Care Plans</a
           >
           <a
             href="#contact"
@@ -302,6 +485,11 @@
             href="#photography"
             class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
             >Photography</a
+          >
+          <a
+            href="#care"
+            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
+            >Care Plans</a
           >
           <a
             href="#contact"
@@ -401,55 +589,60 @@
             <h3
               class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
             >
-              What I build with
+              What every website comes with
             </h3>
             <ul class="mt-4 flex flex-wrap gap-2.5">
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                HTML
+                Mobile-first design
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                CSS
+                Fast, lightweight pages
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                Tailwind CSS
+                Found on Google
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                JavaScript
+                Contact forms &amp; booking
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                Node.js
+                Google Business Profile
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                Express.js
+                Analytics &amp; call tracking
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                Java
+                Secure &amp; spam-protected
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                Python
+                Accessible &amp; keyboard-friendly
               </li>
               <li
                 class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
               >
-                SQL
+                Support 7 days a week
               </li>
             </ul>
+            <p class="mt-5 max-w-2xl text-sm leading-relaxed text-ink-muted">
+              Built by hand &mdash; no drag-and-drop builders, no monthly
+              template fees, and no site that looks like everyone
+              else&rsquo;s.
+            </p>
           </div>
         </div>
       </section>
@@ -467,7 +660,8 @@
               These are live demo sites &mdash; click any of them and browse the
               way your customers would. Six are built across the most common
               local-business industries, plus one fully custom passion project
-              with no budget cap.
+              with no budget cap. Every one of them is mobile-first and built to
+              be found on Google, so open them on your phone too.
             </p>
           </div>
 
@@ -509,6 +703,24 @@
                   design, a cursor-follow project preview, and an editorial dark
                   aesthetic &mdash; no template, no budget cap.
                 </p>
+
+                <ul class="mt-7 flex flex-wrap gap-2">
+                  <li
+                    class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-cream/70"
+                  >
+                    Fully custom design
+                  </li>
+                  <li
+                    class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-cream/70"
+                  >
+                    Bespoke motion
+                  </li>
+                  <li
+                    class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-cream/70"
+                  >
+                    Editorial art direction
+                  </li>
+                </ul>
 
                 <div class="mt-9">
                   <a
@@ -636,17 +848,17 @@
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    Menu with prices
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Hours &amp; directions
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Call to reserve
                   </li>
                 </ul>
                 <a
@@ -711,17 +923,17 @@
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    Class schedule
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Free-trial signup
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Enquiry form
                   </li>
                 </ul>
                 <a
@@ -786,17 +998,17 @@
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    5-page site
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Project gallery
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Free estimate form
                   </li>
                 </ul>
                 <a
@@ -861,17 +1073,17 @@
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    Appointment requests
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Insurance friendly
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Patient reviews
                   </li>
                 </ul>
                 <a
@@ -930,23 +1142,23 @@
                 </h3>
                 <p class="mt-3 text-sm leading-relaxed text-ink-muted">
                   A multi-page site with embedded booking, a testimonial
-                  section, and advanced local SEO.
+                  section, and local SEO built in.
                 </p>
                 <ul class="mt-5 flex flex-wrap gap-2">
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    Online booking
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Service price list
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Google reviews
                   </li>
                 </ul>
                 <a
@@ -1005,23 +1217,23 @@
                 </h3>
                 <p class="mt-3 text-sm leading-relaxed text-ink-muted">
                   A listings-focused site with consultation booking, client
-                  testimonials, and full SEO schema.
+                  testimonials, and Google-friendly markup.
                 </p>
                 <ul class="mt-5 flex flex-wrap gap-2">
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    HTML
+                    Featured listings
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    Tailwind CSS
+                    Consultation booking
                   </li>
                   <li
                     class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
                   >
-                    JavaScript
+                    Client testimonials
                   </li>
                 </ul>
                 <a
@@ -1085,7 +1297,7 @@
                 >
                   $499<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
-                    >flat</span
+                    >CAD flat</span
                   >
                 </p>
                 <ul class="mt-7 space-y-3">
@@ -1149,7 +1361,7 @@
                     <a
                       href="#photography"
                       class="font-semibold text-accent underline-offset-4 transition hover:underline"
-                      >+ Business photo session, $249</a
+                      >+ Business photo session, $249 CAD</a
                     >
                     &mdash; just <strong class="text-ink">$199</strong> bundled
                     with this package. Shot by a professional photographer.
@@ -1178,7 +1390,7 @@
                 >
                   $799<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
-                    >flat</span
+                    >CAD flat</span
                   >
                 </p>
                 <ul class="mt-7 space-y-3">
@@ -1242,7 +1454,7 @@
                     <a
                       href="#photography"
                       class="font-semibold text-accent underline-offset-4 transition hover:underline"
-                      >+ Business photo session, $249</a
+                      >+ Business photo session, $249 CAD</a
                     >
                     &mdash; just <strong class="text-ink">$199</strong> bundled
                     with this package. Shot by a professional photographer.
@@ -1271,7 +1483,7 @@
                 >
                   $1,199<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
-                    >flat</span
+                    >CAD flat</span
                   >
                 </p>
                 <ul class="mt-7 space-y-3">
@@ -1335,7 +1547,7 @@
                     <a
                       href="#photography"
                       class="font-semibold text-accent underline-offset-4 transition hover:underline"
-                      >+ Business photo session, $249</a
+                      >+ Business photo session, $249 CAD</a
                     >
                     &mdash; just <strong class="text-ink">$199</strong> bundled
                     with this package. Shot by a professional photographer.
@@ -1348,6 +1560,49 @@
                 >Get Started</a
               >
             </article>
+          </div>
+
+          <div
+            class="reveal mt-10 rounded-md border border-line bg-shell p-6 sm:p-7"
+          >
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+              <span
+                class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-accent-soft text-accent-dark"
+              >
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 12a9 9 0 11-3.2-6.9" />
+                  <path d="M21 3v6h-6" />
+                </svg>
+              </span>
+              <div>
+                <h3
+                  class="font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  Every package can include a care plan
+                </h3>
+                <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                  From
+                  <strong class="text-ink">$50 CAD a month</strong>, I keep the
+                  site online, backed up and up to date, and take care of small
+                  content changes so nothing goes stale. No contract &mdash;
+                  cancel anytime.
+                </p>
+                <a
+                  href="#care"
+                  class="mt-4 inline-flex w-fit items-center gap-1 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+                  >See the care plans &rarr;</a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1376,7 +1631,7 @@
                   />
                   <circle cx="12" cy="13" r="4" />
                 </svg>
-                One add-on &mdash; $249 flat
+                One add-on &mdash; $249 CAD flat
               </p>
 
               <h2
@@ -1530,7 +1785,7 @@
                 >
                   $249
                   <span class="font-sans text-sm font-medium text-cream/50"
-                    >flat</span
+                    >CAD flat</span
                   >
                 </p>
 
@@ -1550,7 +1805,7 @@
                     &mdash; book the session with any website package and the
                     add-on is
                     <span class="font-semibold text-cream"
-                      >$199 instead of $249</span
+                      >$199 instead of $249 CAD</span
                     >. One trip to your location, one invoice, and photos that
                     land in the layout instead of being squeezed into it later.
                   </p>
@@ -1658,10 +1913,1085 @@
 
                 <p class="mt-4 text-xs leading-relaxed text-cream/45">
                   Also available on its own, without a website &mdash; $249
-                  flat.
+                  CAD flat.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CARE PLANS ============ -->
+      <section id="care" class="border-b border-line">
+        <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+          <div class="max-w-3xl">
+            <p
+              class="reveal inline-flex w-fit items-center gap-2 rounded-full border border-accent/25 bg-accent-soft px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-accent-dark"
+            >
+              <svg
+                class="h-3 w-3"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+              Ongoing care &mdash; from $50 CAD/month
+            </p>
+
+            <h2
+              class="reveal mt-6 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            >
+              Your website, looked after every month
+            </h2>
+
+            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+              A website is not a one-time purchase. Prices change, menus change,
+              photos go stale &mdash; and small things break at the worst
+              possible moment. A care plan covers all of it for one flat monthly
+              fee: hosting, backups, security monitoring and small content
+              updates, plus repairs whenever something goes wrong. You email me,
+              it gets done.
+            </p>
+
+            <p class="reveal mt-4 text-base leading-relaxed text-ink-muted">
+              Plans run month to month with no contract. If you ever leave, the
+              files, the domain and the hosting access are yours &mdash; no
+              hostage situations.
+            </p>
+          </div>
+
+          <div
+            class="reveal mt-10 rounded-md border border-line bg-shell p-6 sm:p-7"
+          >
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+              <span
+                class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-accent text-white"
+              >
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M14.7 6.3a4.5 4.5 0 015.9 5.9L10.9 21.9a2 2 0 01-2.8-2.8z"
+                  />
+                  <path d="M16 8l-9 9" />
+                </svg>
+              </span>
+              <div>
+                <h3
+                  class="font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  Already have a website? Start with a rescue audit
+                </h3>
+                <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                  Care plans work on sites I didn&rsquo;t build too &mdash;
+                  WordPress, Wix, or something hand-coded years ago. The first
+                  step is a one-time
+                  <strong class="text-ink"
+                    >Website Rescue Audit, $199 CAD flat</strong
+                  >: I check security, speed, mobile layout, forms and your
+                  Google setup, fix whatever is critical, and put backups and
+                  monitoring in place. You get a written report of what I found.
+                </p>
+                <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                  Emergency repairs are covered by a plan only after that audit
+                  &mdash; so a five-year-old plugin can&rsquo;t turn into a
+                  surprise ten-hour rebuild on a $50 month. And if the audit
+                  shows the site is beyond saving, I credit the
+                  <strong class="text-ink">$199 toward a new build</strong>.
+                </p>
+                <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                  Keeping your own hosting? The plan price stays the same
+                  &mdash; managing your hosting panel is part of the work.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-14">
+            <h3
+              class="reveal font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+            >
+              Three plans, flat monthly pricing
+            </h3>
+
+            <div class="mt-6 grid gap-8 md:grid-cols-3">
+              <article
+                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+              >
+                <div class="flex flex-1 flex-col">
+                  <h3
+                    class="font-display text-lg font-semibold tracking-tight text-ink"
+                  >
+                    Essential
+                  </h3>
+                  <p
+                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  >
+                    $50<span
+                      class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                      >CAD / month</span
+                    >
+                  </p>
+                  <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                    For smaller sites &mdash; 1 to 2 pages.
+                  </p>
+                  <ul class="mt-7 space-y-3">
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Hosting, SSL and daily backups included
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Security updates and uptime monitoring, 24/7
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      One small content change a month, up to 30 minutes
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Emergency repairs covered &mdash; no extra invoice
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Your domain renewed, up to $25 CAD a year
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Replies within 2 business days, reachable 7 days a week
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Cancel anytime &mdash; no contract, 30-day money-back
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  class="mt-8 inline-flex items-center justify-center rounded-sm border border-accent px-5 py-3 text-sm font-semibold text-accent transition hover:-translate-y-px hover:bg-accent hover:text-white"
+                  >Start with Essential</a
+                >
+              </article>
+
+              <article
+                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-8"
+              >
+                <div class="flex flex-1 flex-col">
+                  <div class="flex items-start justify-between gap-3">
+                    <h3
+                      class="font-display text-lg font-semibold tracking-tight text-ink"
+                    >
+                      Plus
+                    </h3>
+                    <span
+                      class="rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
+                      >Most popular</span
+                    >
+                  </div>
+                  <p
+                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  >
+                    $75<span
+                      class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                      >CAD / month</span
+                    >
+                  </p>
+                  <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                    For growing sites &mdash; 4 to 5 pages.
+                  </p>
+                  <ul class="mt-7 space-y-3">
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Everything in Essential, plus:
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Three content changes a month, up to 90 minutes
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      One Google Business Profile post every month
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Short monthly report: uptime, speed and enquiries
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Replies within 1 business day
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Two seasonal refreshes a year
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Cancel anytime &mdash; no contract
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  class="mt-8 inline-flex items-center justify-center rounded-sm bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
+                  >Choose Plus</a
+                >
+              </article>
+
+              <article
+                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+              >
+                <div class="flex flex-1 flex-col">
+                  <h3
+                    class="font-display text-lg font-semibold tracking-tight text-ink"
+                  >
+                    Complete
+                  </h3>
+                  <p
+                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  >
+                    $150<span
+                      class="ml-2 font-sans text-sm font-medium text-ink-muted"
+                      >CAD / month</span
+                    >
+                  </p>
+                  <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                    For larger sites &mdash; 5 to 8 pages.
+                  </p>
+                  <ul class="mt-7 space-y-3">
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Everything in Plus, plus:
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Six content changes a month, up to 4 hours
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      One new page or section every quarter
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Two Google Business posts plus replies to your reviews
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Detailed monthly report, no jargon
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Same-day replies and four seasonal refreshes a year
+                    </li>
+                    <li
+                      class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                    >
+                      <svg
+                        class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                      Cancel anytime &mdash; no contract
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  class="mt-8 inline-flex items-center justify-center rounded-sm border border-accent px-5 py-3 text-sm font-semibold text-accent transition hover:-translate-y-px hover:bg-accent hover:text-white"
+                  >Choose Complete</a
+                >
+              </article>
+            </div>
+          </div>
+
+          <div
+            class="reveal mt-8 rounded-md border border-line bg-shell px-5 py-5"
+          >
+            <p class="text-sm leading-relaxed text-ink-muted">
+              <strong class="text-ink"
+                >Pay for a year, get 12 months for the price of 10</strong
+              >
+              &mdash; $500, $750 or $1,500 CAD, invoiced once. Every plan
+              starts with a 30-day money-back guarantee, and a single change
+              outside your plan is
+              <strong class="text-ink">$75 CAD flat</strong> while a new page is
+              <strong class="text-ink">$250 CAD flat</strong> &mdash; so one
+              spare change already costs more than a whole month of Essential.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-8 lg:grid-cols-2">
+            <div class="reveal rounded-md border border-line bg-white p-8">
+              <h3
+                class="font-display text-lg font-semibold tracking-tight text-ink"
+              >
+                Included in every plan
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                If it is small, routine and keeps your site current, it is
+                covered &mdash; you send a message, I handle it.
+              </p>
+              <ul class="mt-6 space-y-3">
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Updating your text, prices, hours or staff names
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Swapping out photos you send me
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Adding or editing a menu line or a service
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Adding a new review or testimonial
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Fixing a typo or a broken link
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Refreshing a banner, button or call to action
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Sorting out a form or email that stopped working
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Keeping the site online, backed up and secure
+                </li>
+              </ul>
+              <p class="mt-5 text-xs leading-relaxed text-ink-muted">
+                One request equals one change (&ldquo;swap these three photos
+                and update the hours&rdquo; is one). Quotas reset monthly and
+                unused time does not carry over.
+              </p>
+            </div>
+
+            <div class="reveal rounded-md border border-line bg-white p-8">
+              <h3
+                class="font-display text-lg font-semibold tracking-tight text-ink"
+              >
+                Quoted separately
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                Bigger jobs get a flat price you approve before I start
+                &mdash; nothing gets done without your OK.
+              </p>
+              <ul class="mt-6 space-y-3">
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  New pages or sections beyond your plan
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Redesigns and new layouts
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Online payments and shops
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Integrations: CRM, POS, booking tools, MLS feeds
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Moving to a new domain or hosting
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Full SEO campaigns and ad management
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  <span>
+                    New photo sessions &mdash;
+                    <a
+                      href="#photography"
+                      class="font-medium text-accent underline-offset-4 transition hover:underline"
+                      >from $249, or $199 with a package</a
+                    >
+                  </span>
+                </li>
+                <li
+                  class="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                >
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                  </svg>
+                  Third-party fees: booking software, premium plugins
+                </li>
+              </ul>
+              <p class="mt-5 text-xs leading-relaxed text-ink-muted">
+                New pages are $250 CAD flat and an extra change outside your
+                plan is $75 CAD flat. Larger work is quoted per project.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-14">
+            <h3
+              class="reveal font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+            >
+              Questions owners ask before signing up
+            </h3>
+
+            <div
+              class="reveal mt-6 divide-y divide-line overflow-hidden rounded-md border border-line bg-white"
+            >
+              <details class="px-6 py-5">
+                <summary
+                  class="flex items-start justify-between gap-4 font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  What counts as a small content change?
+                  <svg
+                    class="faq-chevron mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <p
+                  class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted"
+                >
+                  Updating text, prices, hours or staff names, swapping photos,
+                  adding or editing a menu item, adding a review, fixing a typo
+                  or a broken link, and small banner refreshes. One request
+                  counts as one change.
+                </p>
+              </details>
+
+              <details class="px-6 py-5">
+                <summary
+                  class="flex items-start justify-between gap-4 font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  What if I need something bigger?
+                  <svg
+                    class="faq-chevron mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <p
+                  class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted"
+                >
+                  You get a flat price first, and nothing happens without your
+                  OK. An extra change outside your plan is
+                  <strong class="text-ink">$75 CAD flat</strong>, a new page is
+                  <strong class="text-ink">$250 CAD flat</strong>, and Complete
+                  already includes one new page or section every quarter.
+                </p>
+              </details>
+
+              <details class="px-6 py-5">
+                <summary
+                  class="flex items-start justify-between gap-4 font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  Can I cancel my care plan?
+                  <svg
+                    class="faq-chevron mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <p
+                  class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted"
+                >
+                  Yes. Plans are month to month with no contract and no
+                  cancellation fee. If you leave, the files, the domain and the
+                  hosting access are transferred to you.
+                </p>
+              </details>
+
+              <details class="px-6 py-5">
+                <summary
+                  class="flex items-start justify-between gap-4 font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  My site was built by someone else. Can I still sign up?
+                  <svg
+                    class="faq-chevron mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <p
+                  class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted"
+                >
+                  Yes. It moves onto a care plan after a one-time Website Rescue
+                  Audit of
+                  <strong class="text-ink">$199 CAD flat</strong>, which fixes
+                  what is critical and sets up backups and monitoring. Emergency
+                  repairs are covered only after that audit, and the fee is
+                  credited toward a new build if the site is beyond saving.
+                </p>
+              </details>
+
+              <details class="px-6 py-5">
+                <summary
+                  class="flex items-start justify-between gap-4 font-display text-base font-semibold tracking-tight text-ink"
+                >
+                  What happens if my site breaks at 2 a.m.?
+                  <svg
+                    class="faq-chevron mt-0.5 h-4 w-4 shrink-0 text-ink-muted"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <p
+                  class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted"
+                >
+                  Uptime and security are monitored around the clock and
+                  emergency repairs are included in every plan, so putting the
+                  site back online never generates an extra invoice. You can
+                  reach me any day of the week; replies land within 2 business
+                  days on Essential, 1 on Plus and the same day on Complete.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <div
+            class="reveal mt-14 flex flex-col gap-6 rounded-md border border-line bg-shell p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10"
+          >
+            <div class="max-w-xl">
+              <h3
+                class="font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl"
+              >
+                Want your site handled without thinking about it?
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                Tell me which plan fits, or ask for a recommendation &mdash; I
+                will reply with a straight answer. 30-day money-back
+                guarantee on every plan, no contract, cancel anytime.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              class="inline-flex shrink-0 items-center justify-center rounded-sm bg-accent px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
+              >Start a care plan</a
+            >
           </div>
         </div>
       </section>
@@ -1778,6 +3108,47 @@
                       href="#photography"
                       class="font-medium text-accent underline-offset-4 transition hover:underline"
                       >details here</a
+                    >.
+                  </p>
+                </div>
+
+                <div class="mt-6">
+                  <label
+                    for="care-plan"
+                    class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                    >Monthly care plan</label
+                  >
+                  <select
+                    id="care-plan"
+                    name="care-plan"
+                    class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink transition focus:border-accent focus:outline-none"
+                  >
+                    <option value="One-time project" selected>
+                      No &mdash; one-time project
+                    </option>
+                    <option value="Essential care plan ($50 CAD/month)">
+                      Yes &mdash; Essential, $50 CAD/month
+                    </option>
+                    <option value="Plus care plan ($75 CAD/month)">
+                      Yes &mdash; Plus, $75 CAD/month
+                    </option>
+                    <option value="Complete care plan ($150 CAD/month)">
+                      Yes &mdash; Complete, $150 CAD/month
+                    </option>
+                    <option value="Existing website rescue audit ($199)">
+                      I already have a website &mdash; rescue audit ($199)
+                    </option>
+                    <option value="Not sure about care plans">
+                      Not sure &mdash; recommend a plan for me
+                    </option>
+                  </select>
+                  <p class="mt-2 text-xs text-ink-muted">
+                    Hosting, backups, security and small updates, from $50 CAD a
+                    month.
+                    <a
+                      href="#care"
+                      class="font-medium text-accent underline-offset-4 transition hover:underline"
+                      >See what care plans cover</a
                     >.
                   </p>
                 </div>
