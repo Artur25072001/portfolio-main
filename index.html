@@ -22,8 +22,42 @@
       property="og:description"
       content="Fixed-price websites for Niagara small businesses from $599 CAD, plus photography, social video and monthly content plans from $449. Live demos you can browse right now."
     />
-    <meta property="og:image" content="og-cover.png" />
+    <meta
+      property="og:image"
+      content="og-cover.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="Artur Dymchevskyi &mdash; fixed-price websites, photography and social content for small businesses in the Niagara Region"
+    />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Artur Dymchevskyi" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Artur Dymchevskyi — Websites, Photography &amp; Social Content | Niagara"
+    />
+    <meta
+      name="twitter:description"
+      content="Fixed-price websites for Niagara small businesses from $599 CAD, plus photography, social video and monthly content plans from $449."
+    />
+    <meta name="theme-color" content="#1D4ED8" />
+
+    <!--
+      TODO once a real domain points at this site. Every value below has to be an
+      absolute URL, so it can only be filled in when the domain is known:
+
+        <link rel="canonical" href="https://YOUR-DOMAIN/" />
+        <meta property="og:url" content="https://YOUR-DOMAIN/" />
+        <meta property="og:image" content="https://YOUR-DOMAIN/og-cover.png" />
+        <meta name="twitter:image" content="https://YOUR-DOMAIN/og-cover.png" />
+        and, in robots.txt:  Sitemap: https://YOUR-DOMAIN/sitemap.xml
+
+      og:image is currently a relative path, which Facebook, LinkedIn and X all
+      ignore, so link previews show no image until it is made absolute. The
+      domain is also required before sitemap.xml can be written. Canonical and
+      og:url are optional on a single-page site, but worth setting either way.
+    -->
 
     <!-- Structured data -->
     <script type="application/ld+json">
