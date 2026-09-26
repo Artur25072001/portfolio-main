@@ -6990,8 +6990,12 @@
                 <input type="hidden" name="form-name" value="contact" />
                 <!-- Spam honeypot. Hidden from people; Netlify drops any
                      submission that fills it in, and the bot-field value is
-                     never counted as a real entry. -->
-                <p class="hidden" aria-hidden="true">
+                     never counted as a real entry. The inline display:none is
+                     deliberate: Tailwind loads from a CDN and builds the
+                     .hidden class at runtime, so if that stylesheet is slow or
+                     fails, a class-only hide would leave this field visible and
+                     a real person could fill it in. -->
+                <p style="display: none" class="hidden" aria-hidden="true">
                   <label
                     >Leave this field empty if you are human:
                     <input
@@ -7030,7 +7034,7 @@
                       name="email"
                       required
                       autocomplete="email"
-                      placeholder="jane@business.com"
+                      placeholder="Your email address"
                       class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
                     />
                   </div>
