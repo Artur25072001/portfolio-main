@@ -22,16 +22,15 @@
       property="og:description"
       content="Fixed-price websites for Niagara small businesses from $599 CAD, plus photography, social video and monthly content plans from $449. Live demos you can browse right now."
     />
-    <meta
-      property="og:image"
-      content="og-cover.png"
-    />
+    <meta property="og:image" content="https://portfolio-artur-dymchevskyi.netlify.app/og-cover.png" />
     <meta
       property="og:image:alt"
       content="Artur Dymchevskyi &mdash; fixed-price websites, photography and social content for small businesses in the Niagara Region"
     />
+    <meta property="og:image:width" content="1200" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Artur Dymchevskyi" />
+    <meta property="og:url" content="https://portfolio-artur-dymchevskyi.netlify.app/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -41,23 +40,20 @@
       name="twitter:description"
       content="Fixed-price websites for Niagara small businesses from $599 CAD, plus photography, social video and monthly content plans from $449."
     />
+    <meta name="twitter:image" content="https://portfolio-artur-dymchevskyi.netlify.app/og-cover.png" />
     <meta name="theme-color" content="#1D4ED8" />
 
     <!--
-      TODO once a real domain points at this site. Every value below has to be an
-      absolute URL, so it can only be filled in when the domain is known:
+      Absolute URLs are required here, which is why they are hard-coded rather
+      than relative. If this site ever moves to its own domain, these four have
+      to change together, plus the Sitemap line in robots.txt:
 
-        <link rel="canonical" href="https://YOUR-DOMAIN/" />
-        <meta property="og:url" content="https://YOUR-DOMAIN/" />
-        <meta property="og:image" content="https://YOUR-DOMAIN/og-cover.png" />
-        <meta name="twitter:image" content="https://YOUR-DOMAIN/og-cover.png" />
-        and, in robots.txt:  Sitemap: https://YOUR-DOMAIN/sitemap.xml
+        canonical, og:image, og:url, twitter:image
 
-      og:image is currently a relative path, which Facebook, LinkedIn and X all
-      ignore, so link previews show no image until it is made absolute. The
-      domain is also required before sitemap.xml can be written. Canonical and
-      og:url are optional on a single-page site, but worth setting either way.
+      Leaving a stale canonical behind is worse than having none: it tells
+      Google the real page lives somewhere else.
     -->
+    <link rel="canonical" href="https://portfolio-artur-dymchevskyi.netlify.app/" />
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -6987,9 +6983,23 @@
                 name="contact"
                 method="POST"
                 data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                action="/thanks.html"
                 class="rounded-md border border-line bg-white p-6 sm:p-8"
               >
                 <input type="hidden" name="form-name" value="contact" />
+                <!-- Spam honeypot. Hidden from people; Netlify drops any
+                     submission that fills it in, and the bot-field value is
+                     never counted as a real entry. -->
+                <p class="hidden" aria-hidden="true">
+                  <label
+                    >Leave this field empty if you are human:
+                    <input
+                      name="bot-field"
+                      tabindex="-1"
+                      autocomplete="off" /></label
+                  >
+                </p>
 
                 <div class="grid gap-6 sm:grid-cols-2">
                   <div>
@@ -7021,6 +7031,21 @@
                       required
                       autocomplete="email"
                       placeholder="jane@business.com"
+                      class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="business"
+                      class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                      >Business name</label
+                    >
+                    <input
+                      type="text"
+                      id="business"
+                      name="business"
+                      autocomplete="organization"
+                      placeholder="Rossi Plumbing"
                       class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 transition focus:border-accent focus:outline-none"
                     />
                   </div>
@@ -7057,6 +7082,38 @@
                     <option value="Content plan only">Content plan only</option>
                     <option value="Not sure yet">Not sure yet</option>
                   </select>
+                </div>
+
+                <div class="mt-6">
+                  <label
+                    for="assets"
+                    class="block font-display text-xs font-semibold uppercase tracking-[0.12em] text-ink"
+                    >Do you already have a logo and photos?</label
+                  >
+                  <select
+                    id="assets"
+                    name="assets"
+                    class="mt-2.5 w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink transition focus:border-accent focus:outline-none"
+                  >
+                    <option value="Both — logo and photos" selected>
+                      Yes &mdash; both a logo and photos
+                    </option>
+                    <option value="Logo only, no photos">
+                      Logo only &mdash; no photos yet
+                    </option>
+                    <option value="Photos only, no logo">
+                      Photos only &mdash; no logo yet
+                    </option>
+                    <option value="Neither — I would need help with both">
+                      Neither &mdash; I would need help with both
+                    </option>
+                  </select>
+                  <p class="mt-2 text-xs text-ink-muted">
+                    If you have neither, that is completely normal. A photo
+                    session and a simple logo are both things I can sort out
+                    &mdash; it just changes the timeline, so it helps to know
+                    before I quote.
+                  </p>
                 </div>
 
                 <div class="mt-6">

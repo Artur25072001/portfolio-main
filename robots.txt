@@ -9,6 +9,4 @@ Allow: /
 # sites. Each of them carries a "noindex" meta tag plus an X-Robots-Tag
 # response header, and their own robots.txt closes the AI-training crawlers.
 # They are not listed here and are deliberately kept out of search results.
-#
-# TODO: once a domain is live, uncomment the next line and set it.
-# Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://portfolio-artur-dymchevskyi.netlify.app/sitemap.xml
