@@ -1134,8 +1134,11 @@
          Mobile navigation — up to 1023px, the same breakpoint where the
          hamburger replaces the desktop nav. Desktop keeps the sticky
          header and the section rail, nothing else.
-         Palette only: espresso #131311, cream #F4EFE7, rose #C98B8B.
-         No blue is used by anything in this block.
+         Palette: espresso #131311, cream #F4EFE7, and the site's blue
+         accent — #1D4ED8 solid (progress bar, CTA) and #CBD9F7
+         accent.mid on the dark espresso overlay, so the mobile chrome
+         matches the rest of the site rather than the photography
+         section's rose.
          ========================================================== */
 
       /* The dialog is a sibling of <header>, not a child: the header's
@@ -1161,7 +1164,7 @@
       #scroll-progress-bar {
         display: block;
         height: 100%;
-        background: #c98b8b;
+        background: #1d4ed8;
         transform: scaleX(0);
         transform-origin: 0 50%;
         will-change: transform;
@@ -1296,13 +1299,13 @@
           font-weight: 600;
           letter-spacing: 0.12em;
           font-variant-numeric: tabular-nums;
-          color: #c98b8b;
+          color: #cbd9f7;
         }
         /* aria-current is the one source of truth for the highlight: the
            scroll-spy sets it and the CSS reacts to it. */
         .mobile-menu-list a[aria-current="true"] {
-          color: #c98b8b;
-          background: rgba(201, 139, 139, 0.1);
+          color: #cbd9f7;
+          background: rgba(29, 78, 216, 0.25);
         }
         .mobile-menu-list a[aria-current="true"] .mobile-menu-index {
           color: #f4efe7;
@@ -1320,8 +1323,8 @@
 
       @media (max-width: 1023px) {
         /* ---------- Shared "Book a session" button ----------
-           Same shape and type as the hero CTA, with the rose/espresso
-           colours of the ready-made Photography button. */
+           Same shape and type as the hero CTA, in the site's blue accent:
+           #1D4ED8 solid, white text, #17399E on hover. */
         .mobile-cta {
           display: inline-flex;
           align-items: center;
@@ -1330,8 +1333,8 @@
           min-height: 56px;
           padding: 0 1.5rem;
           border-radius: 2px;
-          background: #c98b8b;
-          color: #131311;
+          background: #1d4ed8;
+          color: #ffffff;
           font-family: Inter, ui-sans-serif, system-ui, sans-serif;
           font-size: 0.875rem;
           font-weight: 600;
@@ -1340,7 +1343,7 @@
           transition: background-color 0.15s ease-out;
         }
         .mobile-cta:hover {
-          background: rgba(201, 139, 139, 0.9);
+          background: #17399e;
         }
         .mobile-menu-foot .mobile-cta {
           width: 100%;
@@ -1438,8 +1441,9 @@
         }
       }
 
-      /* Focus rings for the new dark/rose controls, with no blue: espresso
-         on the light header, rose on the dark overlay and the dark arrow. */
+      /* Focus rings: espresso on the light header, and the light accent
+         blue #CBD9F7 on the dark overlay and the dark arrow, where a
+         #1D4ED8 ring would not read against espresso. */
       #menu-toggle:focus-visible,
       #mobile-book:focus-visible {
         outline: 2px solid #131311;
@@ -1448,7 +1452,7 @@
       #mobile-menu a:focus-visible,
       #mobile-menu button:focus-visible,
       #to-top:focus-visible {
-        outline: 2px solid #c98b8b;
+        outline: 2px solid #cbd9f7;
         outline-offset: -2px;
       }
 
