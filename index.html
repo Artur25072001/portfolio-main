@@ -28,6 +28,7 @@
       content="Artur Dymchevskyi &mdash; fixed-price websites, photography and social content for small businesses in the Niagara Region"
     />
     <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Artur Dymchevskyi" />
     <meta property="og:url" content="https://portfolio-artur-dymchevskyi.netlify.app/" />
@@ -745,6 +746,10 @@
               espresso: "#131311",
               cream: "#F4EFE7",
               bronze: { DEFAULT: "#C0873F", soft: "#2A231B" },
+              /* Dusty rose — the accent of the photography section and
+                 Khrystyna's own brand (photographer-portfolio). Bronze
+                 stays for the STRATA featured card above. */
+              rose: { DEFAULT: "#C98B8B", dark: "#B07676", soft: "#2A1D1D" },
             },
             fontFamily: {
               sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
@@ -763,9 +768,29 @@
     </script>
 
     <style>
+      /* Nothing on this page may create a horizontal scroll region.
+         Measured before this rule existed: the "?" hint pop-ups widened the
+         document by 81-86px at every width from 320px up to 1280px, so every
+         phone and tablet could be panned sideways while the sticky header
+         stayed put. overflow-x: clip does not create a scroll container, so
+         sticky and fixed positioning keep working.
+         Safari before 16 does not understand `clip` and drops the whole
+         declaration, which is why the older engines get `hidden` instead. */
+      html {
+        overflow-x: clip;
+      }
+      @supports not (overflow-x: clip) {
+        html {
+          overflow-x: hidden;
+        }
+      }
       body {
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
+        /* Last line of defence: a long URL or an unbreakable label can no
+           longer widen the document on a 320-360px screen. */
+        max-width: 100%;
+        overflow-wrap: break-word;
       }
       [id] {
         scroll-margin-top: 6rem;
@@ -822,6 +847,7 @@
         vertical-align: middle;
       }
       .term {
+        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -843,7 +869,11 @@
         border-color: #1d4ed8;
         color: #ffffff;
       }
+      /* display: none, deliberately not visibility: hidden. A hidden box
+         still counts toward the document's scrollable overflow, which is
+         exactly what used to widen the page on phones and tablets. */
       .term-tip {
+        display: none;
         position: absolute;
         z-index: 60;
         bottom: calc(100% + 0.6rem);
@@ -871,6 +901,7 @@
       .term-wrap:hover .term-tip,
       .term:focus-visible + .term-tip,
       .term[aria-expanded="true"] + .term-tip {
+        display: block;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -883,15 +914,62 @@
       .term-tip--dark strong {
         color: #1b1b19;
       }
-      @media (max-width: 640px) {
-        .term-tip {
+      /* Phones and tablets: the hint opens in the flow under the bullet
+         instead of floating. A 304px floating bubble anchored to a badge
+         that sits near the right edge ran off the screen (measured: 91px of
+         the text sat outside a 390px screen), so in the flow it is always
+         fully readable and it can never widen the page. */
+      @media (max-width: 1023px) {
+        /* Inside a flex row the tip would become a flex item and sit beside
+           the text, so any parent that directly holds a badge is allowed to
+           wrap, and the tip is given a line of its own. Harmless on the
+           parents that are not flex containers. */
+        *:has(> .term-wrap) {
+          flex-wrap: wrap;
+        }
+        .term-wrap {
+          display: contents;
+        }
+        /* With flex-wrap on, a long bullet pushed the whole text onto its
+           own line and left the tick alone above it. On a phone the row is
+           a block instead: the tick is pinned left, the words flow as one
+           paragraph and the "?" sits at the end of the sentence. */
+        li:has(> .term-wrap) {
+          display: block;
+          position: relative;
+          padding-left: 1.75rem;
+        }
+        li:has(> .term-wrap) > svg {
+          position: absolute;
           left: 0;
-          width: min(19rem, calc(100vw - 4rem));
+          top: 0.15rem;
+          margin-top: 0;
+        }
+        .term {
+          vertical-align: middle;
+        }
+        .term-tip {
+          position: static;
+          flex: 1 0 100%;
+          width: auto;
+          max-width: none;
+          margin: 0.5rem 0 0;
+          transform: none;
         }
         .term-wrap:hover .term-tip,
         .term:focus-visible + .term-tip,
         .term[aria-expanded="true"] + .term-tip {
-          transform: translateX(0) translateY(0);
+          display: block;
+          transform: none;
+        }
+        /* A finger needs a bigger target than an 18px dot: the dot keeps its
+           size and the extra area is an invisible overlay. Held at 36px
+           rather than 44px so it does not swallow taps on the words either
+           side of it. */
+        .term::after {
+          content: "";
+          position: absolute;
+          inset: -0.55rem;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -906,6 +984,688 @@
           transition: none;
         }
       }
+
+      /* Availability dot: a soft radar ping behind the green light */
+      .slot-ping::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: #22c55e;
+        animation: slot-ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+      @keyframes slot-ping {
+        75%,
+        100% {
+          transform: scale(2.6);
+          opacity: 0;
+        }
+      }
+
+      /* Before / after comparison slider (Work section) */
+      .ba-wrap {
+        position: relative;
+        touch-action: pan-y;
+      }
+      .ba-before,
+      .ba-after {
+        position: absolute;
+        inset: 0;
+      }
+      .ba-after {
+        clip-path: inset(0 0 0 var(--ba, 50%));
+      }
+      .ba-range {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: ew-resize;
+      }
+      .ba-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: var(--ba, 50%);
+        width: 2px;
+        margin-left: -1px;
+        background: #ffffff;
+        box-shadow: 0 0 0 1px rgba(27, 27, 25, 0.25);
+        pointer-events: none;
+      }
+      .ba-handle::after {
+        content: "\2039\00a0\203A";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        transform: translate(-50%, -50%);
+        border-radius: 9999px;
+        background: #1d4ed8;
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        box-shadow: 0 8px 22px rgba(27, 27, 25, 0.3);
+      }
+      .ba-range:focus-visible ~ .ba-handle::after {
+        box-shadow:
+          0 0 0 3px #edf2fd,
+          0 0 0 6px #1d4ed8;
+      }
+
+      /* A <fieldset> carries a native min-width of min-content, so as a grid
+         item it refused to shrink and pushed the quote builder 27px past a
+         320px-wide screen. */
+      #quote-builder fieldset {
+        min-inline-size: 0;
+      }
+      /* Those option rows carry a one-line (truncate) label. On a phone the
+         row is genuinely narrower than the longest label, and an ellipsis in
+         a price list is worse than a second line, so let it wrap instead. */
+      @media (max-width: 480px) {
+        #quote-builder .qb-option .truncate {
+          white-space: normal;
+          overflow: visible;
+          text-overflow: clip;
+        }
+      }
+
+      /* Quote builder: the checked option carries the accent */
+      .qb-option {
+        transition:
+          border-color 0.15s ease-out,
+          background-color 0.15s ease-out;
+      }
+      .qb-option:has(input:checked) {
+        border-color: #1d4ed8;
+        background: #edf2fd;
+      }
+
+      /* Phones: tighten the vertical rhythm of every section so there is
+         less empty air to scroll through, without touching the content. */
+      @media (max-width: 640px) {
+        main > section > div.mx-auto {
+          padding-top: 2.5rem;
+          padding-bottom: 2.5rem;
+        }
+        #hero > div.mx-auto {
+          padding-top: 4rem;
+          padding-bottom: 4rem;
+        }
+      }
+
+      /* Work demo cards: on phones they become a swipeable filmstrip
+         instead of one long vertical stack. md and up keep the grid. */
+      @media (max-width: 767px) {
+        .work-carousel {
+          display: flex;
+          gap: 1.25rem;
+          overflow-x: auto;
+          /* A sideways swipe at either end of the strip stays inside the
+             strip. Without this the gesture chains to the page / the
+             browser's back-swipe on a real phone, which reads as the whole
+             page sliding sideways. */
+          overscroll-behavior-x: contain;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          padding: 0.25rem 1.25rem 0.5rem;
+          margin-right: -1.25rem;
+          margin-left: -1.25rem;
+          scrollbar-width: none;
+        }
+        .work-carousel::-webkit-scrollbar {
+          display: none;
+        }
+        .work-carousel > article {
+          flex: 0 0 85%;
+          max-width: 21rem;
+          scroll-snap-align: center;
+        }
+      }
+
+      /* ==========================================================
+         Mobile navigation — up to 1023px, the same breakpoint where the
+         hamburger replaces the desktop nav. Desktop keeps the sticky
+         header and the section rail, nothing else.
+         Palette only: espresso #131311, cream #F4EFE7, rose #C98B8B.
+         No blue is used by anything in this block.
+         ========================================================== */
+
+      /* The dialog is a sibling of <header>, not a child: the header's
+         backdrop-filter would otherwise become the containing block for
+         a fixed descendant and squash the overlay to the header height. */
+      #mobile-menu {
+        display: none;
+      }
+
+      /* 3px progress line under the header. Mobile only, so the desktop
+         header stays pixel-identical. */
+      #scroll-progress {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 3px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
+      }
+      #scroll-progress-bar {
+        display: block;
+        height: 100%;
+        background: #c98b8b;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        will-change: transform;
+      }
+
+      /* Both fixed controls are "not on the page" by default. */
+      #mobile-book,
+      #to-top {
+        display: none;
+      }
+
+      @media (max-width: 1023px) {
+        #scroll-progress {
+          display: block;
+        }
+
+        /* ---------- Full-screen menu ---------- */
+        #mobile-menu {
+          position: fixed;
+          inset: 0;
+          /* menu (70) > header (50) > CTA / to-top (45) > rail (40) */
+          z-index: 70;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100vh;
+          height: 100dvh;
+          background: #131311;
+          color: #f4efe7;
+          visibility: hidden;
+          opacity: 0;
+          transform: translateY(1.25rem);
+          pointer-events: none;
+          overscroll-behavior: contain;
+          transition:
+            opacity 0.22s ease-out,
+            transform 0.22s ease-out,
+            visibility 0s linear 0.22s;
+        }
+        #mobile-menu.is-open {
+          visibility: visible;
+          opacity: 1;
+          transform: none;
+          pointer-events: auto;
+          transition:
+            opacity 0.22s ease-out,
+            transform 0.22s ease-out,
+            visibility 0s;
+        }
+        #mobile-menu:focus {
+          outline: none;
+        }
+
+        .mobile-menu-head {
+          display: flex;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.75rem 1rem;
+          padding-top: calc(0.75rem + env(safe-area-inset-top));
+          border-bottom: 1px solid rgba(244, 239, 231, 0.12);
+        }
+        .mobile-menu-title {
+          margin: 0;
+          font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(244, 239, 231, 0.62);
+        }
+        .mobile-menu-close {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          margin: -0.25rem -0.25rem -0.25rem 0;
+          border: 1px solid rgba(244, 239, 231, 0.2);
+          border-radius: 2px;
+          background: transparent;
+          color: #f4efe7;
+          cursor: pointer;
+        }
+        .mobile-menu-close:hover {
+          background: rgba(244, 239, 231, 0.08);
+        }
+
+        .mobile-menu-body {
+          flex: 1 1 auto;
+          min-height: 0;
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          padding: 0.5rem 1rem;
+        }
+        .mobile-menu-list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        .mobile-menu-list li + li {
+          border-top: 1px solid rgba(244, 239, 231, 0.12);
+        }
+        .mobile-menu-list a {
+          display: flex;
+          align-items: center;
+          gap: 0.9rem;
+          min-height: 52px;
+          padding: 0.4rem 0.85rem;
+          border-radius: 2px;
+          color: #f4efe7;
+          font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 1.125rem;
+          font-weight: 600;
+          line-height: 1.25;
+          letter-spacing: -0.01em;
+          text-decoration: none;
+          transition:
+            background-color 0.15s ease-out,
+            color 0.15s ease-out;
+        }
+        .mobile-menu-list a:hover {
+          background: rgba(244, 239, 231, 0.06);
+        }
+        .mobile-menu-index {
+          flex: 0 0 auto;
+          min-width: 1.6rem;
+          font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          font-variant-numeric: tabular-nums;
+          color: #c98b8b;
+        }
+        /* aria-current is the one source of truth for the highlight: the
+           scroll-spy sets it and the CSS reacts to it. */
+        .mobile-menu-list a[aria-current="true"] {
+          color: #c98b8b;
+          background: rgba(201, 139, 139, 0.1);
+        }
+        .mobile-menu-list a[aria-current="true"] .mobile-menu-index {
+          color: #f4efe7;
+        }
+
+        .mobile-menu-foot {
+          flex: 0 0 auto;
+          margin-top: auto;
+          padding: 0.85rem 1rem;
+          padding-bottom: calc(0.85rem + env(safe-area-inset-bottom));
+          border-top: 1px solid rgba(244, 239, 231, 0.12);
+          background: #131311;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        /* ---------- Shared "Book a session" button ----------
+           Same shape and type as the hero CTA, with the rose/espresso
+           colours of the ready-made Photography button. */
+        .mobile-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          min-height: 56px;
+          padding: 0 1.5rem;
+          border-radius: 2px;
+          background: #c98b8b;
+          color: #131311;
+          font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 0.875rem;
+          font-weight: 600;
+          line-height: 1.2;
+          text-decoration: none;
+          transition: background-color 0.15s ease-out;
+        }
+        .mobile-cta:hover {
+          background: rgba(201, 139, 139, 0.9);
+        }
+        .mobile-menu-foot .mobile-cta {
+          width: 100%;
+        }
+
+        /* ---------- Sticky CTA ---------- */
+        #mobile-book {
+          position: fixed;
+          left: 1rem;
+          right: 1rem;
+          bottom: calc(12px + env(safe-area-inset-bottom));
+          z-index: 45;
+          display: inline-flex;
+          /* Phones: full width minus the 16px insets. Tablets 768-1023:
+             a 420px pill in the middle instead of an 800px slab. */
+          max-width: 420px;
+          margin: 0 auto;
+          box-shadow: 0 6px 20px rgba(27, 27, 25, 0.14);
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(calc(100% + 24px));
+          transition:
+            opacity 0.22s ease-out,
+            transform 0.22s ease-out,
+            visibility 0s linear 0.22s;
+        }
+        #mobile-book.is-visible {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          transform: none;
+          transition:
+            opacity 0.22s ease-out,
+            transform 0.22s ease-out,
+            visibility 0s;
+        }
+
+        /* ---------- Back to top ---------- */
+        #to-top {
+          position: fixed;
+          right: 1rem;
+          /* Above the CTA: 12px bottom + 56px button + 10px gap. */
+          bottom: calc(78px + env(safe-area-inset-bottom));
+          z-index: 45;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border: 1px solid rgba(244, 239, 231, 0.2);
+          border-radius: 9999px;
+          background: #131311;
+          color: #f4efe7;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(8px);
+          transition:
+            opacity 0.2s ease-out,
+            transform 0.2s ease-out,
+            bottom 0.2s ease-out,
+            visibility 0s linear 0.2s;
+        }
+        #to-top.is-visible {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          transform: none;
+          transition:
+            opacity 0.2s ease-out,
+            transform 0.2s ease-out,
+            bottom 0.2s ease-out,
+            visibility 0s;
+        }
+        /* CTA out of the way (contact section, form focus) — the arrow
+           drops into the freed space instead of floating mid-air. */
+        #mobile-book:not(.is-visible) ~ #to-top {
+          bottom: calc(12px + env(safe-area-inset-bottom));
+        }
+
+        /* The menu owns the screen: the fixed controls step aside. */
+        body.menu-open #mobile-book,
+        body.menu-open #to-top {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(8px);
+        }
+
+        /* Insurance for the very last content: even if the CTA were still
+           visible, it cannot sit on top of the footer. */
+        #site-footer {
+          padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+        }
+      }
+
+      /* Focus rings for the new dark/rose controls, with no blue: espresso
+         on the light header, rose on the dark overlay and the dark arrow. */
+      #menu-toggle:focus-visible,
+      #mobile-book:focus-visible {
+        outline: 2px solid #131311;
+        outline-offset: 3px;
+      }
+      #mobile-menu a:focus-visible,
+      #mobile-menu button:focus-visible,
+      #to-top:focus-visible {
+        outline: 2px solid #c98b8b;
+        outline-offset: -2px;
+      }
+
+      /* Same convention as the desktop rail's print:hidden — a printed page
+         never needs a menu button, a floating CTA or a progress line. */
+      @media print {
+        #mobile-menu,
+        #mobile-book,
+        #to-top,
+        #scroll-progress {
+          display: none !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .slot-ping::after {
+          animation: none;
+        }
+        .qb-option {
+          transition: none;
+        }
+        .intro-toggle,
+        .intro-toggle .intro-toggle-icon,
+        #mobile-menu,
+        #mobile-book,
+        .mobile-cta,
+        .mobile-menu-list a,
+        #to-top,
+        #scroll-progress-bar {
+          transition: none;
+        }
+      }
+      /* ==========================================================
+         Phones: the places where a desktop layout was being
+         squeezed into a 350px screen instead of re-flowed.
+         ========================================================== */
+
+      /* 1. Long section intros. The clamp and the button are added by
+            the script only below 640px, so with JavaScript off every
+            word of copy is still visible. */
+      @media (max-width: 639px) {
+        [data-intro].is-collapsed > p:first-of-type {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
+        [data-intro].is-collapsed > p.is-intro-extra {
+          display: none;
+        }
+        /* Section intros are 16px/1.625 on desktop. On a phone they are
+           set at 15px/1.55: still comfortably readable, but a five-line
+           intro loses ~14px, and there are nine of them on the page.
+           `.intro-card` blocks are excluded because their copy is already
+           14px and must not grow. */
+        [data-intro]:not(.intro-card) > p {
+          font-size: 0.9375rem;
+          line-height: 1.55;
+        }
+        /* Plan cards keep every deliverable, but the rows sit closer
+           together on a phone: 8px instead of 12px between bullets.
+           The selector has to outrank Tailwind's .space-y-3 rule, which
+           is why it repeats the :not([hidden]) pair. */
+        .plan-grid ul > li:not([hidden]) + li:not([hidden]) {
+          margin-top: 0.5rem;
+        }
+        /* Less air between the sub-blocks of a section. Tailwind's own
+           .mt-12 / .mt-14 are 48px and 56px, which is desktop breathing
+           room; 36px and 40px still separates the blocks on a phone. */
+        main .mt-12 {
+          margin-top: 2.25rem;
+        }
+        main .mt-14 {
+          margin-top: 2.5rem;
+        }
+      }
+      /* Under 480px the chips are set one notch tighter: 12px with a 6px
+         gap and 8px side padding. Measured at 320px this takes the block
+         from 351px to 261px and lets two chips share a line from 360px,
+         while the labels stay at the 12px the rest of the page uses. */
+      @media (max-width: 479px) {
+        #about ul {
+          gap: 0.375rem;
+        }
+        #about ul li {
+          padding: 0.25rem 0.5rem;
+          font-size: 0.75rem;
+          line-height: 1.45;
+        }
+      }
+
+      /* The "Read more" control is a button, so it should look like one.
+         Before this it was 12px underlined blue text, which read as a
+         stray link — and inside the dark photography section it sat at
+         2.8:1 contrast against #131311, below the 4.5:1 minimum. */
+      .intro-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        min-height: 2.25rem;
+        margin-top: 0.85rem;
+        padding: 0.4rem 0.9rem;
+        border: 1px solid #cbd9f7;
+        border-radius: 9999px;
+        background: #edf2fd;
+        color: #17399e;
+        font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        transition:
+          background-color 0.15s ease-out,
+          border-color 0.15s ease-out,
+          color 0.15s ease-out;
+      }
+      .intro-toggle .intro-toggle-icon {
+        width: 0.85rem;
+        height: 0.85rem;
+        transition: transform 0.2s ease-out;
+      }
+      .intro-toggle[aria-expanded="true"] .intro-toggle-icon {
+        transform: rotate(180deg);
+      }
+      /* Photography is the one dark, rose-accented section. Rose on the
+         #2a1d1d pill is 5.8:1, and it matches the section's own badge. */
+      #photography .intro-toggle {
+        border-color: rgba(201, 139, 139, 0.45);
+        background: #2a1d1d;
+        color: #c98b8b;
+      }
+      /* Hover is for pointers that can actually hover. On a touch screen
+         :hover latches after a tap, so the button stayed solid blue even
+         after the copy had collapsed again — the only feedback it had. */
+      @media (hover: hover) and (pointer: fine) {
+        .intro-toggle:hover {
+          border-color: #1d4ed8;
+          background: #1d4ed8;
+          color: #ffffff;
+        }
+        #photography .intro-toggle:hover {
+          border-color: #c98b8b;
+          background: #c98b8b;
+          color: #131311;
+        }
+      }
+      /* A blue focus ring on espresso is unreadable; use the section rose. */
+      #photography .intro-toggle:focus-visible {
+        outline-color: #c98b8b;
+      }
+      .intro-toggle[hidden] {
+        display: none;
+      }
+      @media (min-width: 640px) {
+        .intro-toggle {
+          display: none;
+        }
+      }
+
+      /* 2. Plan grids on a portrait tablet: two cards, then the last one
+            across the full row, instead of three 149px columns. */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .plan-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .plan-grid > :last-child {
+          grid-column: 1 / -1;
+        }
+      }
+      /* 3. Before / after: side by side the slider needs width a phone
+            does not have. Below md the two builds stack as two labelled
+            panels; the slider stays for tablets and up. 23rem is tall
+            enough that the mock type inside stays readable at 320px. */
+      @media (min-width: 768px) {
+        .ba-wrap {
+          aspect-ratio: 16 / 9;
+        }
+      }
+      @media (max-width: 767px) {
+        .ba-wrap {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 0.5rem;
+          height: auto;
+          padding: 0.75rem;
+          background: #ffffff;
+        }
+        .ba-before,
+        .ba-after {
+          position: static;
+          inset: auto;
+          height: 23rem;
+          border-radius: 2px;
+          overflow: hidden;
+        }
+        .ba-after {
+          clip-path: none;
+        }
+        .ba-range,
+        .ba-handle,
+        .ba-corner {
+          display: none;
+        }
+        .ba-mobile-tag {
+          margin: 0.35rem 0 0;
+          font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 0.65rem;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #5e5e58;
+        }
+        .ba-mobile-tag + .ba-before {
+          margin-top: 0;
+        }
+      }
+
     </style>
 
     <noscript>
@@ -988,10 +1748,11 @@
         <button
           id="menu-toggle"
           type="button"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-sm text-ink transition-colors hover:text-accent lg:hidden"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-sm text-ink transition-colors lg:hidden"
           aria-controls="mobile-menu"
           aria-expanded="false"
-          aria-label="Toggle navigation menu"
+          aria-haspopup="dialog"
+          aria-label="Open navigation menu"
         >
           <svg
             id="icon-open"
@@ -1020,57 +1781,59 @@
         </button>
       </div>
 
-      <div
-        id="mobile-menu"
-        class="hidden border-t border-line bg-white lg:hidden"
-      >
-        <nav
-          class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4 sm:px-8"
-          aria-label="Mobile"
-        >
-          <a
-            href="#about"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >About</a
-          >
-          <a
-            href="#work"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Work</a
-          >
-          <a
-            href="#services"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Services</a
-          >
-          <a
-            href="#photography"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Photography</a
-          >
-          <a
-            href="#social"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Social</a
-          >
-          <a
-            href="#care"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Care Plans</a
-          >
-          <a
-            href="#contact"
-            class="rounded-sm px-2 py-3 text-base font-medium text-ink transition-colors hover:text-accent"
-            >Contact</a
-          >
-          <a
-            href="#contact"
-            class="mt-2 rounded-sm bg-accent px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-accent-dark"
-            >Get in Touch</a
-          >
-        </nav>
+      <!-- Scroll progress: a 3px accent line under the header. Mobile only,
+           so the desktop header stays pixel-identical. -->
+      <div id="scroll-progress" aria-hidden="true">
+        <span id="scroll-progress-bar"></span>
       </div>
     </header>
+
+    <!-- ============ MOBILE NAVIGATION OVERLAY (up to 1023px) ============
+         The list inside is generated from the page's own numbered section
+         markers (01 — About … 08 — Contact) in DOM order, so it can never
+         drift out of sync with the page. It lives outside <header> because
+         the header's backdrop-filter would trap a fixed child at 72px. -->
+    <div
+      id="mobile-menu"
+      class="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobile-menu-title"
+      tabindex="-1"
+    >
+      <div class="mobile-menu-head">
+        <p id="mobile-menu-title" class="mobile-menu-title">Menu</p>
+        <button
+          id="mobile-menu-close"
+          type="button"
+          class="mobile-menu-close"
+          aria-label="Close navigation menu"
+        >
+          <svg
+            class="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-menu-body" aria-label="Mobile">
+        <ul id="mobile-menu-list" class="mobile-menu-list"></ul>
+      </nav>
+
+      <div class="mobile-menu-foot">
+        <a href="#contact" class="mobile-cta">
+          Book a session
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
 
     <main>
       <!-- ============ HERO ============ -->
@@ -1092,8 +1855,9 @@
               >
             </h1>
 
+            <div data-intro>
             <p
-              class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted"
+              class="reveal mt-6 max-w-2xl text-base leading-relaxed sm:text-lg text-ink-muted"
             >
               I build fast, mobile-first websites for small businesses across
               Niagara &mdash; St. Catharines, Niagara Falls, Welland,
@@ -1111,6 +1875,7 @@
               them yourself instead of booking a call to hear a number. Websites
               start at a flat <strong class="text-ink">$599 CAD</strong>.
             </p>
+            </div>
 
             <div
               class="reveal mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
@@ -1121,6 +1886,7 @@
                 >See My Work</a
               >
               <a
+                id="hero-cta"
                 href="#contact"
                 class="inline-flex items-center justify-center rounded-sm bg-accent px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
                 >Get a Free Quote</a
@@ -1130,6 +1896,32 @@
                 class="inline-flex items-center justify-center gap-1 px-2 py-3.5 text-sm font-semibold text-ink-muted underline-offset-4 transition hover:text-accent hover:underline"
                 >See every price on one page &rarr;</a
               >
+            </div>
+
+            <!-- UPDATE-ME: the availability line is updated by hand — it is
+                 honest because it is manual, so keep whatever it says true. -->
+            <div
+              class="reveal mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8"
+            >
+              <p
+                class="inline-flex items-center gap-2.5 text-sm font-medium text-ink-muted"
+              >
+                <span
+                  class="slot-ping relative inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-green-500"
+                  aria-hidden="true"
+                ></span>
+                <span>
+                  <strong class="text-ink">Now booking November</strong> &mdash; 2
+                  build slots left this month
+                </span>
+              </p>
+              <!-- Filled in by the script after load: this page's own real
+                   load time, transferred weight and request count. -->
+              <p
+                id="perf-badge"
+                class="hidden font-mono text-xs leading-relaxed text-ink-muted"
+                aria-live="polite"
+              ></p>
             </div>
           </div>
         </div>
@@ -1147,12 +1939,13 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               About me
             </h2>
             <div
-              class="reveal mt-6 space-y-4 text-lg leading-relaxed text-ink-muted"
+              data-intro
+              class="reveal mt-6 space-y-4 text-base leading-relaxed sm:text-lg text-ink-muted"
             >
               <p>
                 I&rsquo;m a Software Engineering student from Ukraine, now
@@ -1181,49 +1974,49 @@
             >
               What every website comes with
             </h3>
-            <ul class="mt-4 flex flex-wrap gap-2.5">
+            <ul class="mt-4 flex flex-wrap items-start gap-2 sm:gap-2.5">
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Mobile-first design
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Fast, lightweight pages
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Found on Google
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Contact forms &amp; booking
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Google Business Profile
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Analytics &amp; call tracking
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Secure &amp; spam-protected
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Accessible &amp; keyboard-friendly
               </li>
               <li
-                class="rounded-full border border-line bg-shell px-4 py-1.5 text-sm font-medium text-ink"
+                class="inline-flex items-center rounded-full border border-line bg-shell px-3 py-1.5 text-[0.8125rem] leading-snug font-medium text-ink sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 Support 7 days a week
               </li>
@@ -1249,17 +2042,20 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               See what your website could look like
             </h2>
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               These are live demo sites &mdash; click any of them and browse the
-              way your customers would. Six are built across the most common
-              local-business industries, plus one fully custom passion project
-              with no budget cap. Every one of them is mobile-first and built to
-              be found on Google, so open them on your phone too.
+              way your customers would. Seven cover the most common
+              local-business industries, including a complete online store,
+              plus one fully custom passion project. Every one of them is
+              mobile-first and built to be found on Google, so open them on
+              your phone too.
             </p>
+            </div>
           </div>
 
           <!-- Featured project — the one deliberate dark/editorial contrast on the page -->
@@ -1351,63 +2147,219 @@
               <figure
                 class="order-1 m-0 flex flex-col justify-center p-5 sm:p-8 lg:order-2 lg:p-12"
               >
-                <a
-                  href="https://strata-design.netlify.app"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Open the STRATA studio website in a new tab"
+                <!-- Desktop / phone: the same live homepage in two frames -->
+                <div
+                  class="mb-5 flex items-center justify-center gap-2"
+                  role="group"
+                  aria-label="Preview the STRATA demo as"
+                >
+                  <span
+                    class="mr-1 font-sans text-[0.65rem] uppercase tracking-[0.16em] text-cream/50"
+                    >Preview as</span
+                  >
+                  <button
+                    type="button"
+                    id="strata-desktop"
+                    class="rounded-full border border-bronze bg-bronze px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-espresso transition hover:-translate-y-px"
+                    aria-pressed="true"
+                  >
+                    Desktop
+                  </button>
+                  <button
+                    type="button"
+                    id="strata-phone"
+                    class="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-cream/70 transition hover:-translate-y-px hover:border-bronze/60 hover:text-cream"
+                    aria-pressed="false"
+                  >
+                    Phone
+                  </button>
+                </div>
+                <div
+                  id="strata-frame"
                   class="group block w-full overflow-hidden rounded-md border border-white/10 bg-espresso shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-1 hover:border-bronze/50"
                 >
                   <div
+                    id="strata-chrome"
                     class="flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3"
                   >
-                    <span class="flex shrink-0 gap-1.5" aria-hidden="true">
-                      <span
-                        class="h-2.5 w-2.5 rounded-full bg-bronze/70"
-                      ></span>
-                      <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
-                      <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
-                    </span>
                     <span
-                      class="hidden truncate rounded-full bg-black/30 px-3 py-1 font-sans text-[0.65rem] text-cream/60 sm:block"
-                      >strata-design.netlify.app</span
-                    >
-                    <svg
-                      class="ml-auto h-3.5 w-3.5 shrink-0 text-cream/50 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-bronze"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      id="strata-notch"
+                      class="mx-auto hidden h-4 w-24 rounded-full bg-black/40"
                       aria-hidden="true"
+                    ></span>
+                    <a
+                      id="strata-bar"
+                      href="https://strata-design.netlify.app"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Open the STRATA studio website in a new tab"
+                      class="flex w-full items-center gap-3"
                     >
-                      <path
-                        d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
-                      />
-                    </svg>
+                      <span class="flex shrink-0 gap-1.5" aria-hidden="true">
+                        <span
+                          class="h-2.5 w-2.5 rounded-full bg-bronze/70"
+                        ></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-white/25"></span>
+                      </span>
+                      <span
+                        class="hidden truncate rounded-full bg-black/30 px-3 py-1 font-sans text-[0.65rem] text-cream/60 transition group-hover:text-cream sm:block"
+                        >strata-design.netlify.app</span
+                      >
+                      <svg
+                        class="ml-auto h-3.5 w-3.5 shrink-0 text-cream/50 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-bronze"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"
+                        />
+                      </svg>
+                    </a>
                   </div>
 
-                  <img
-                    src="strata.jpg"
-                    alt="Dark, moody architectural interior hero shot for the STRATA studio site: a dim double-height concrete living space lit by a single warm shaft of late-afternoon light, minimal oak furniture, floor-to-ceiling glass overlooking shadowed pine trees, with the serif STRATA wordmark in the top-left corner."
-                    loading="lazy"
-                    width="1200"
-                    height="563"
-                    class="block h-auto w-full opacity-95 transition duration-700 group-hover:opacity-100"
-                  />
-                </a>
+                  <!-- On a phone the whole second site is not auto-loaded
+                       over mobile data: a screenshot poster stands in, one
+                       tap loads the live preview here, and the address bar
+                       still opens the demo full-size. Desktop is live as
+                       before. -->
+                  <div
+                    id="strata-poster"
+                    class="relative hidden h-[540px] w-full overflow-hidden bg-espresso"
+                  >
+                    <img
+                      src="strata.jpg"
+                      alt="Screenshot of the STRATA studio homepage: a dark editorial layout with a large architectural photograph and serif type."
+                      class="absolute inset-0 h-full w-full object-cover opacity-70"
+                    />
+                    <div
+                      class="absolute inset-0 flex flex-col items-center justify-center gap-3.5 bg-espresso/70 px-6 text-center"
+                    >
+                      <p
+                        class="font-display text-sm font-semibold tracking-tight text-cream"
+                      >
+                        The STRATA homepage, live in the frame
+                      </p>
+                      <p
+                        class="max-w-[16rem] text-xs leading-relaxed text-cream/70"
+                      >
+                        On a phone the live preview waits for your tap, so a
+                        whole second site is not loaded over your data.
+                      </p>
+                      <button
+                        type="button"
+                        id="strata-load"
+                        class="rounded-full border border-bronze bg-bronze px-5 py-2 font-display text-xs font-semibold text-espresso transition hover:-translate-y-px"
+                      >
+                        Load the live preview
+                      </button>
+                      <a
+                        href="https://strata-design.netlify.app"
+                        target="_blank"
+                        rel="noopener"
+                        class="text-xs font-semibold text-cream/80 underline-offset-4 transition hover:text-bronze hover:underline"
+                        >Open the demo full-size &rarr;</a
+                      >
+                    </div>
+                  </div>
+                  <iframe
+                    id="strata-view"
+                    data-src="https://strata-design.netlify.app/"
+                    title="The live STRATA studio homepage, embedded — scroll inside the frame"
+                    class="block h-[540px] w-full border-0 bg-espresso"
+                  ></iframe>
+                </div>
 
                 <figcaption class="mt-4 text-xs leading-relaxed text-cream/50">
-                  The live STRATA homepage, shown here in full at its real
-                  proportions &mdash; click the preview to open the demo.
+                  The real STRATA homepage, live in the frame &mdash; scroll
+                  inside it, switch Desktop and Phone above to watch it re-lay
+                  itself out, or click the address bar to open the demo
+                  full-size. On a phone it starts as a screenshot and loads
+                  live on your tap, so it does not spend your data unasked.
                 </figcaption>
               </figure>
             </div>
           </article>
 
+          <!-- E-commerce demo — the newest card: a complete online store.
+               UPDATE-ME: the link assumes the Netlify subdomain
+               orchard-lane-provisions.netlify.app; if the store is deployed
+               under a different name, change the href below to match. -->
+          <article
+            class="reveal group mt-10 grid overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)] md:grid-cols-5"
+          >
+            <div
+              class="relative aspect-video overflow-hidden bg-shell md:col-span-2 md:aspect-auto"
+            >
+              <span
+                class="absolute left-3 top-3 z-10 rounded-full bg-accent px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white"
+                >Shop from $999</span
+              >
+              <img
+                src="orchard-lane.svg"
+                alt="Preview of the Orchard Lane Provisions online-store demo homepage: a warm cream and forest-green farm-market layout with the headline 'The farm market, open on your phone', a 'Shop the market' button, and four product tiles — a honey jar, a maple bottle, a loaf and a bouquet."
+                loading="lazy"
+                class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6 md:col-span-3 md:p-8">
+              <p
+                class="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-muted"
+              >
+                E-commerce &middot; Farm market
+              </p>
+              <h3
+                class="mt-2.5 font-display text-lg font-semibold leading-snug tracking-tight text-ink"
+              >
+                Orchard Lane Provisions &mdash; Online Store Demo
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+                A complete online store, not a mock-up: a 24-product catalogue
+                with filters, search and sorting, a basket with promo codes,
+                a three-step checkout with delivery or pickup, order
+                confirmation and tracking &mdash; and the basket can hand off
+                to a real Snipcart checkout in test mode, test card and all.
+                Real online payments are quoted per store.
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li
+                  class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                >
+                  Full catalogue &amp; filters
+                </li>
+                <li
+                  class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                >
+                  Basket &amp; promo codes
+                </li>
+                <li
+                  class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                >
+                  3-step checkout
+                </li>
+                <li
+                  class="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
+                >
+                  Order tracking
+                </li>
+              </ul>
+              <a
+                href="https://orchard-lane-provisions.netlify.app"
+                target="_blank"
+                rel="noopener"
+                class="mt-auto inline-flex w-fit items-center gap-1 pt-6 text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+                >View Live Demo &rarr;</a
+              >
+            </div>
+          </article>
+
           <!-- Demo grid -->
-          <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div class="work-carousel mt-10 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             <!-- 1. Restaurant / Starter -->
             <article
               class="reveal group flex flex-col overflow-hidden rounded-md border border-line bg-white shadow-[0_1px_2px_rgba(27,27,25,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(27,27,25,0.08)]"
@@ -1768,6 +2720,180 @@
               </div>
             </article>
           </div>
+          <p class="mt-3 text-xs text-ink-muted md:hidden">
+            Swipe sideways to browse the rest of the demos &rarr;
+          </p>
+
+          <!-- Before / after: drag the handle across the same business -->
+          <div
+            class="reveal mt-12 rounded-md border border-line bg-white p-6 sm:p-8"
+          >
+            <div class="max-w-2xl">
+              <h3
+                class="font-display text-base font-semibold tracking-tight text-ink"
+              >
+                Drag the handle: the same restaurant, before and after
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+                Left &mdash; the kind of template page most local businesses
+                settle for. Right &mdash; the same place, hand-built around its
+                own photos. Works with a finger, a mouse or the arrow keys.
+              </p>
+            </div>
+
+            <div
+              id="ba-wrap"
+              class="ba-wrap mt-6 overflow-hidden rounded-sm border border-line bg-white"
+              style="--ba: 50%"
+            >
+              <p class="ba-mobile-tag md:hidden">
+                Before &mdash; a generic template page
+              </p>
+              <!-- BEFORE: the generic free-template look most local
+                   restaurants end up with — same restaurant, same photo,
+                   default type, centered everything, zero hierarchy -->
+              <div
+                class="ba-before bg-[#F2F2F0] text-center"
+                aria-hidden="true"
+                style="font-family: Arial, Helvetica, sans-serif"
+              >
+                <div class="flex h-full flex-col">
+                  <div class="border-b border-[#DDDDDD] bg-white px-4 py-3">
+                    <p class="text-[0.9rem] font-bold text-[#333333]">
+                      Bella Vista Trattoria &mdash; Italian Restaurant
+                    </p>
+                    <p class="mt-1 text-[0.7rem] text-[#0645AD] underline">
+                      Home&nbsp;&nbsp;|&nbsp;&nbsp;About
+                      Us&nbsp;&nbsp;|&nbsp;&nbsp;Menu&nbsp;&nbsp;|&nbsp;&nbsp;Gallery&nbsp;&nbsp;|&nbsp;&nbsp;Contact&nbsp;&nbsp;|&nbsp;&nbsp;Blog
+                    </p>
+                  </div>
+                  <div class="relative min-h-0 flex-1 overflow-hidden">
+                    <img
+                      src="bella-vista-hero.jpg"
+                      alt=""
+                      class="absolute inset-0 h-full w-full object-cover opacity-90"
+                      style="filter: saturate(0.8) brightness(1.05)"
+                    />
+                    <div
+                      class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/25 px-4"
+                    >
+                      <p
+                        class="bg-white/90 px-4 py-1 text-[0.7rem] font-bold uppercase tracking-[0.3em] text-[#555555]"
+                      >
+                        Welcome To
+                      </p>
+                      <p
+                        class="bg-white/90 px-5 py-2 text-xl font-bold text-[#8B2E2E] sm:text-2xl"
+                      >
+                        Our Restaurant!
+                      </p>
+                      <p
+                        class="bg-white/90 px-4 py-1 text-[0.8rem] italic text-[#444444]"
+                      >
+                        Best pizza &amp; pasta in town &mdash; see our full
+                        menu and order online
+                      </p>
+                      <span
+                        class="mt-1 rounded-[3px] border border-[#BBBBBB] border-b-[3px] border-b-[#999999] bg-[#F7F7F7] px-5 py-2 text-[0.8rem] font-bold text-[#333333]"
+                      >
+                        ORDER ONLINE
+                      </span>
+                    </div>
+                  </div>
+                  <div class="bg-[#E9E9E9] px-4 py-2">
+                    <p class="text-[0.65rem] text-[#777777]">
+                      &copy; 2021 Bella Vista Trattoria &middot; Website
+                      powered by BuildMySite&trade;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <p class="ba-mobile-tag md:hidden">
+                After &mdash; the same place, rebuilt
+              </p>
+
+              <!-- AFTER: the real build — the same restaurant, the same
+                   photo and the same words, hand-built around them -->
+              <div class="ba-after" aria-hidden="true">
+                <div class="relative h-full w-full overflow-hidden">
+                  <img
+                    src="bella-vista-hero.jpg"
+                    alt=""
+                    class="absolute inset-0 h-full w-full object-cover"
+                    style="object-position: center 32%"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-b from-[#2C2C2C]/70 via-[#2C2C2C]/45 to-[#2C2C2C]/80"
+                  ></div>
+                  <div
+                    class="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+                  >
+                    <p
+                      class="font-editorial text-sm italic tracking-wide text-[#C67C5C] sm:text-base"
+                    >
+                      Benvenuti
+                    </p>
+                    <p
+                      class="mt-2 font-editorial text-2xl font-bold leading-tight text-[#FDF8F0] sm:text-4xl"
+                    >
+                      Handmade Pasta
+                      <br class="hidden sm:block" />
+                      &amp; Real Italian Flavor
+                    </p>
+                    <p
+                      class="mt-3 max-w-md text-xs leading-relaxed text-[#FDF8F0]/90 sm:text-sm"
+                    >
+                      Right in the heart of Toronto&rsquo;s King West. Every
+                      dish is made from scratch, the way Nonna intended.
+                    </p>
+                    <div
+                      class="mt-5 flex flex-col items-center gap-2.5 sm:flex-row"
+                    >
+                      <span
+                        class="rounded-full bg-[#C67C5C] px-6 py-2.5 text-xs font-semibold text-white sm:text-sm"
+                      >
+                        Call to Reserve Your Table
+                      </span>
+                      <span
+                        class="rounded-full border border-white/40 px-6 py-2.5 text-xs font-semibold text-white sm:text-sm"
+                      >
+                        View Our Menu
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <input
+                type="range"
+                id="ba-range"
+                min="0"
+                max="100"
+                value="50"
+                step="1"
+                class="ba-range"
+                aria-label="Reveal the rebuilt website by dragging"
+              />
+              <div class="ba-handle" aria-hidden="true"></div>
+
+              <span
+                class="ba-corner pointer-events-none absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white/90"
+                >Before</span
+              >
+              <span
+                class="ba-corner pointer-events-none absolute right-3 top-3 rounded-full bg-accent px-2.5 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
+                >After</span
+              >
+            </div>
+
+            <p class="mt-3 text-xs leading-relaxed text-ink-muted">
+              The &ldquo;before&rdquo; is a mock-up, not a real client &mdash;
+              the same restaurant, the same photo and the same words, run
+              through a generic template. You have seen that page a hundred
+              times, and so have your customers.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -1783,11 +2909,12 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               Flat-rate packages, no surprises
             </h2>
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               One price, agreed up front &mdash; no hourly billing, no creeping
               invoices and no quote you have to book a call to see. Every
               package is published below with the deliverables written out, the
@@ -1795,12 +2922,13 @@
               compare them yourself before we ever speak. All prices are in
               CAD.
             </p>
+            </div>
           </div>
 
-          <div class="mt-12 grid gap-8 md:grid-cols-3">
+          <div class="plan-grid mt-12 grid gap-8 lg:grid-cols-3">
             <!-- Starter -->
             <article
-              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+              class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
             >
               <div class="flex flex-1 flex-col">
                 <h3
@@ -1809,7 +2937,7 @@
                   Starter
                 </h3>
                 <p
-                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                 >
                   $599<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -1938,7 +3066,7 @@
 
             <!-- Business -->
             <article
-              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+              class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
             >
               <div class="flex flex-1 flex-col">
                 <h3
@@ -1947,7 +3075,7 @@
                   Business
                 </h3>
                 <p
-                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                 >
                   $1,199<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -2075,7 +3203,7 @@
 
             <!-- Growth -->
             <article
-              class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+              class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
             >
               <div class="flex flex-1 flex-col">
                 <h3
@@ -2084,7 +3212,7 @@
                   Growth
                 </h3>
                 <p
-                  class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                  class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                 >
                   $1,999<span
                     class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -2214,22 +3342,18 @@
               class="reveal mt-10 rounded-sm border border-line bg-shell px-4 py-3.5"
             >
               <p class="text-xs leading-relaxed text-ink-muted">
-                Every package above can be bundled with
+                Add
                 <a
                   href="#photography"
                   class="font-semibold text-accent underline-offset-4 transition hover:underline"
-                  >photography, from $299 CAD</a
+                  >photography from $299</a
                 >
-                &mdash; the Session is <strong class="text-ink">$249</strong>
-                bundled with a package, a Half Day $429, a Content Day $849, shot
-                by a professional photographer &mdash; and with
+                &mdash; $249 when bundled with a package &mdash; or
                 <a
                   href="#social"
                   class="font-semibold text-accent underline-offset-4 transition hover:underline"
-                  >social &amp; video content, monthly from $449</a
-                >
-                : posts, short-form video and community replies handled for
-                you.
+                  >monthly content from $449</a
+                >. Both are fully priced on this page.
               </p>
             </div>
 
@@ -2309,16 +3433,29 @@
             </div>
           </div>
 
-          <!-- What a website package does not include -->
-          <div
-            class="reveal mt-6 rounded-md border border-line bg-shell p-6 sm:p-7"
+          <!-- What a website package does not include: the same accordion
+               language as the FAQ below, because the 12 items and the note
+               took 445px of a phone screen before anyone chose to read them. -->
+          <details
+            class="reveal mt-6 rounded-md border border-line bg-shell"
           >
-            <h3
-              class="font-display text-base font-semibold tracking-tight text-ink"
+            <summary
+              class="flex items-center justify-between gap-4 overflow-hidden px-6 py-5 sm:px-7"
             >
-              What a website package does not include
-            </h3>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
+              <h3
+                class="font-display text-base font-semibold tracking-tight text-ink"
+              >
+                What a website package does not include
+              </h3>
+              <span class="flex shrink-0 items-center gap-3">
+                <span class="text-xs font-medium text-ink-muted">12 items</span>
+                <svg class="faq-chevron h-4 w-4 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
+            </summary>
+            <div class="px-6 pb-6 sm:px-7 sm:pb-7">
+            <p class="text-sm leading-relaxed text-ink-muted">
               Written down so nothing arrives as a surprise invoice later. Each
               of these is either unnecessary for most local businesses or gets a
               flat price you approve before I start.
@@ -2328,7 +3465,11 @@
                 <svg class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M5 12h14" />
                 </svg>
-                <span class="min-w-0">Online payments, shops and membership areas</span>
+                <span class="min-w-0">Online payments, shops and membership areas &mdash; <a
+                    href="#prices"
+                    class="font-medium text-accent underline-offset-4 transition hover:underline"
+                    >online shops from $999</a
+                  ></span>
               </li>
               <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
                 <svg class="mt-0.5 h-4 w-4 shrink-0 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2405,7 +3546,8 @@
               $15 to $25 CAD a year, and hosting is included while a care plan
               runs.
             </p>
-          </div>
+            </div>
+          </details>
 
           <details class="reveal mt-12">
             <summary
@@ -2444,7 +3586,9 @@
                   outside Growth, third-party subscriptions, an admin panel, and
                   formal accessibility audits. The full list is in the card
                   above, and every item on it gets a flat price you approve
-                  before I start.
+                  before I start &mdash; and you can click through a complete
+                  online-store demo, basket and checkout included, in the
+                  <a href="#work" class="font-medium text-accent underline-offset-4 transition hover:underline">Work section above</a>.
                 </p>
               </details>
 
@@ -2819,18 +3963,18 @@
               <p
                 class="reveal flex items-center gap-3 font-display text-xs font-semibold uppercase tracking-[0.22em] text-cream/60"
               >
-                <span class="h-px w-8 bg-bronze"></span>
+                <span class="h-px w-8 bg-rose"></span>
                 <span>04 &mdash; Photography</span>
               </p>
 
               <h2
-                class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-cream sm:text-5xl"
+                class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-cream sm:text-5xl"
               >
                 Add real photos of your business
               </h2>
 
               <p
-                class="reveal mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-bronze/40 bg-bronze-soft px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-bronze"
+                class="reveal mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-rose/40 bg-rose-soft px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose"
               >
                 <svg
                   class="h-3 w-3"
@@ -2850,7 +3994,8 @@
                 Three sessions &mdash; from $299 CAD
               </p>
 
-              <p class="reveal mt-5 text-lg leading-relaxed text-cream/70">
+              <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-cream/70">
                 Stock photos are free, and your customers can tell. Faces,
                 rooms, dishes and finished jobs that actually belong to
                 <em class="font-editorial italic text-cream">you</em> make a
@@ -2859,33 +4004,18 @@
               </p>
 
               <p class="reveal mt-4 text-base leading-relaxed text-cream/70">
-                This is not something I do on the side: the sessions are shot by
-                my wife, a professional photographer. I handle the website, she
-                handles the camera &mdash; so the photos arrive already sized,
-                cropped and named for the pages they will sit on.
-              </p>
-
-              <p class="reveal mt-4 text-base leading-relaxed text-cream/70">
                 One flat price per session &mdash; no hourly rate, no per-image
                 charges, no surprise editing fees. Pick the session that matches
                 what you have to photograph.
               </p>
-
-              <p class="reveal mt-4 text-base leading-relaxed text-cream/70">
-                Sessions cover the whole Niagara Region with no travel fee
-                &mdash; St. Catharines, Niagara Falls, Welland,
-                Niagara-on-the-Lake, Thorold, Grimsby and Fort Erie. Anywhere
-                further out in Southern Ontario is a flat
-                <strong class="text-cream">$75 travel fee</strong>, agreed before
-                you book.
-              </p>
+            </div>
 
               <div
                 class="reveal mt-9 flex flex-wrap items-center gap-x-5 gap-y-3"
               >
                 <a
                   href="#contact"
-                  class="inline-flex items-center justify-center rounded-sm bg-bronze px-6 py-3 text-sm font-semibold text-espresso transition hover:-translate-y-px hover:bg-bronze/90"
+                  class="inline-flex items-center justify-center rounded-sm bg-rose px-6 py-3 text-sm font-semibold text-espresso transition hover:-translate-y-px hover:bg-rose/90"
                   >Book a session &rarr;</a
                 >
                 <span class="text-sm text-cream/60"
@@ -2902,7 +4032,7 @@
                 <ul class="mt-5 grid gap-3 sm:grid-cols-2">
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -2917,7 +4047,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -2932,7 +4062,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -2947,7 +4077,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -2962,7 +4092,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -2977,7 +4107,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3016,6 +4146,7 @@
                   >
                 </p>
 
+                <div data-intro class="intro-card">
                 <p class="mt-4 text-sm leading-relaxed text-cream/70">
                   Whichever length you pick, the session is planned for your
                   business, shot on location, and edited by a professional
@@ -3025,13 +4156,14 @@
                   promised in the same window for everyone: you always see the
                   first previews within 48 hours.
                 </p>
+                </div>
 
                 <div
-                  class="mt-6 rounded-sm border border-bronze/30 bg-bronze-soft px-4 py-3.5"
+                  class="mt-6 rounded-sm border border-rose/30 bg-rose-soft px-4 py-3.5"
                 >
                   <p class="text-sm leading-relaxed text-cream/80">
                     <span
-                      class="font-display font-semibold uppercase tracking-[0.1em] text-bronze"
+                      class="font-display font-semibold uppercase tracking-[0.1em] text-rose"
                       >Bundle &amp; save</span
                     >
                     <span class="term-wrap">
@@ -3040,28 +4172,21 @@
                         <strong>Bundled price:</strong> the lower price when a
                         session is booked together with a website package &mdash;
                         $249 instead of $299, $429 instead of $499, $849 instead
-                        of $999. One trip to your location, one invoice, and the
-                        photos land in the layout instead of being squeezed into
-                        it later.
+                        of $999.
                       </span>
                     </span>
-                    &mdash; book any session with a website package and you pay
-                    <span class="font-semibold text-cream"
-                      >$249 for the Session</span
-                    >,
-                    <span class="font-semibold text-cream">$429</span> for the
-                    Half Day and
-                    <span class="font-semibold text-cream">$849</span> for the
-                    Content Day. One trip to your location, one invoice, and
-                    photos that land in the layout instead of being squeezed
-                    into it later.
+                    &mdash; book a session with a website package and you pay
+                    <span class="font-semibold text-cream">$249 for the Session</span>,
+                    <span class="font-semibold text-cream">$429</span> for the Half Day
+                    and <span class="font-semibold text-cream">$849</span> for the
+                    Content Day. One visit, one invoice.
                   </p>
                 </div>
 
                 <ul class="mt-8 space-y-3.5">
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3077,7 +4202,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3092,7 +4217,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3117,7 +4242,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3132,7 +4257,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3147,7 +4272,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3165,7 +4290,7 @@
 
                 <a
                   href="#contact"
-                  class="mt-8 inline-flex w-full items-center justify-center rounded-sm border border-bronze px-5 py-3 text-sm font-semibold text-bronze transition hover:-translate-y-px hover:bg-bronze hover:text-espresso"
+                  class="mt-8 inline-flex w-full items-center justify-center rounded-sm border border-rose px-5 py-3 text-sm font-semibold text-rose transition hover:-translate-y-px hover:bg-rose hover:text-espresso"
                   >Add photography to my project</a
                 >
 
@@ -3184,10 +4309,10 @@
               Which session fits your business
             </h3>
 
-            <div class="mt-6 grid gap-6 md:grid-cols-3">
+            <div class="plan-grid mt-6 grid gap-6 lg:grid-cols-3">
               <!-- The Session -->
               <article
-                class="reveal flex flex-col rounded-md border border-white/10 bg-white/5 p-7"
+                class="reveal flex flex-col rounded-md border border-white/10 bg-white/5 p-6 sm:p-7"
               >
                 <div class="flex items-start justify-between gap-3">
                   <h4
@@ -3218,7 +4343,7 @@
                 <ul class="mt-5 space-y-2.5">
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3233,7 +4358,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3259,7 +4384,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border border-bronze/50 bg-white/10 p-7"
+                class="reveal flex flex-col rounded-md border border-rose/50 bg-white/10 p-6 sm:p-7"
               >
                 <div class="flex items-start justify-between gap-3">
                   <h4
@@ -3268,7 +4393,7 @@
                     The Half Day
                   </h4>
                   <span
-                    class="shrink-0 rounded-full bg-bronze px-2.5 py-0.5 font-display text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-espresso"
+                    class="shrink-0 whitespace-nowrap rounded-full bg-rose px-2.5 py-0.5 font-display text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-espresso"
                     >Best value</span
                   >
                 </div>
@@ -3290,7 +4415,7 @@
                 <ul class="mt-5 space-y-2.5">
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3305,7 +4430,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3320,7 +4445,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3337,7 +4462,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border border-white/10 bg-white/5 p-7"
+                class="reveal flex flex-col rounded-md border border-white/10 bg-white/5 p-6 sm:p-7"
               >
                 <div class="flex items-start justify-between gap-3">
                   <h4
@@ -3368,7 +4493,7 @@
                 <ul class="mt-5 space-y-2.5">
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3383,7 +4508,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3398,7 +4523,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3413,7 +4538,7 @@
                   </li>
                   <li class="flex gap-3 text-sm leading-relaxed text-cream/70">
                     <svg
-                      class="mt-0.5 h-4 w-4 shrink-0 text-bronze"
+                      class="mt-0.5 h-4 w-4 shrink-0 text-rose"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -3729,7 +4854,7 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               Someone to keep your social media running
             </h2>
@@ -3753,7 +4878,8 @@
               Monthly content &mdash; from $449 CAD/month
             </p>
 
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               Most local feeds die the same way: three posts one week, then
               nothing for a month. Posting in bursts makes a healthy business
               look closed. A content plan keeps the feed steady &mdash; written,
@@ -3762,20 +4888,16 @@
             </p>
 
             <p class="reveal mt-4 text-base leading-relaxed text-ink-muted">
-              The content is genuinely yours. Photos come from your own session
-              and the video is shot on location, so nothing on your feed is a
-              stock image three competitors are using too.
+              The content is genuinely yours, not a template feed: photos come
+              from your own sessions, the video is shot on location and the
+              captions are written for your business, so nothing on your feed
+              is a stock image three competitors are using too. Every plan
+              below lists exactly what you get each month &mdash; starting at
+              <strong class="text-ink">$449 CAD</strong>, with no setup fee.
             </p>
-
-            <p class="reveal mt-4 text-base leading-relaxed text-ink-muted">
-              And it is not a template feed. The photos come from your own
-              sessions, the video is shot on location, the captions are written
-              for your business, and every plan below lists exactly what you get
-              each month &mdash; starting at
-              <strong class="text-ink">$449 CAD</strong>, published on the page,
-              with no setup fee and no call required to hear a number.
-            </p>
+            </div>
           </div>
+
           <div class="mt-14">
             <h3
               class="reveal font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
@@ -3783,9 +4905,9 @@
               Three plans, flat monthly pricing
             </h3>
 
-            <div class="mt-6 grid gap-8 md:grid-cols-3">
+            <div class="plan-grid mt-6 grid gap-8 lg:grid-cols-3">
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -3794,7 +4916,7 @@
                     Starter
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $449<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -3905,7 +5027,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-8"
+                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <div class="flex items-start justify-between gap-3">
@@ -3915,12 +5037,12 @@
                       Momentum
                     </h4>
                     <span
-                      class="rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
+                      class="shrink-0 whitespace-nowrap rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
                       >Most popular</span
                     >
                   </div>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $949<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -4072,7 +5194,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -4081,7 +5203,7 @@
                     Always On
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $1,799<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -4199,7 +5321,7 @@
               Add video to your plan
             </h3>
 
-            <div class="reveal mt-6 max-w-3xl space-y-4">
+            <div data-intro class="reveal mt-6 max-w-3xl space-y-4">
               <p class="text-base leading-relaxed text-ink-muted">
                 Short vertical video is what gets seen now, and it is the one
                 thing most owners never get around to filming. I shoot it in the
@@ -4216,9 +5338,9 @@
               </p>
             </div>
 
-            <div class="mt-8 grid gap-8 md:grid-cols-3">
+            <div class="plan-grid mt-8 grid gap-8 lg:grid-cols-3">
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -4227,7 +5349,7 @@
                     The Reel Set
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $449<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -4332,7 +5454,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-8"
+                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <div class="flex items-start justify-between gap-3">
@@ -4342,12 +5464,12 @@
                       The Reel Half Day
                     </h4>
                     <span
-                      class="rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
+                      class="shrink-0 whitespace-nowrap rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
                       >Best value</span
                     >
                   </div>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $749<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -4428,7 +5550,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -4437,7 +5559,7 @@
                     The Reel Full Day
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $1,199<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -4740,27 +5862,21 @@
                   Website client:
                   <strong class="text-ink">$75 a month off</strong> any plan.
                   Content plan plus a care plan:
-                  <strong class="text-ink">$50 a month off</strong> &mdash; the
-                  two discounts do not stack. Prepay three months and take
-                  <strong class="text-ink">10% off</strong>, or pay for a year and
-                  get
-                  <strong class="text-ink">12 months for the price of 10</strong>
-                  &mdash; the same deal the care plans run, so the maths does not
-                  change from section to section. Video booked with a website or a
-                  plan:
-                  <strong class="text-ink">$100 off</strong> a shoot. A photo
+                  <strong class="text-ink">$50 a month off</strong> &mdash; one
+                  discount per month, they do not stack. Prepay three months for
+                  <strong class="text-ink">10% off</strong>, or a year for
+                  <strong class="text-ink">12 months at the price of 10</strong>.
+                  Video with a website or a plan:
+                  <strong class="text-ink">$100 off</strong> a shoot; a photo
                   Content Day and a video shoot in one visit:
                   <strong class="text-ink">$150 off</strong> the pair.
                 </p>
                 <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
-                  Plans start with a two-month minimum so there is time to build
-                  momentum, then run month to month with 30 days notice and no
-                  cancellation fee. No setup fee, no bots, no bought followers,
-                  and your accounts stay yours. No travel fee anywhere in the
-                  Niagara Region; Hamilton, Burlington and the GTA are a
-                  <strong class="text-ink">$75 flat travel fee</strong>. Only one
-                  discount applies per month, and the quote you are given is held
-                  for 30 days.
+                  Two-month minimum, then month to month with 30 days notice and
+                  no cancellation fee. No setup fee, no bots, no bought followers,
+                  and your accounts stay yours. Travel outside Niagara is a
+                  <strong class="text-ink">$75 flat fee</strong>, and a quote is
+                  held for 30 days.
                 </p>
                 <a
                   href="#contact"
@@ -5184,7 +6300,7 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               Your website, looked after every month
             </h2>
@@ -5208,7 +6324,8 @@
               Ongoing care &mdash; from $50 CAD/month
             </p>
 
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               A website is not a one-time purchase. Prices change, menus change,
               photos go stale &mdash; and small things break at the worst
               possible moment. A care plan covers all of it for one flat monthly
@@ -5222,6 +6339,7 @@
               files, the domain and the hosting access are yours &mdash; no
               hostage situations.
             </p>
+            </div>
           </div>
 
           <div
@@ -5253,6 +6371,7 @@
                 >
                   Already have a website? Start with a rescue audit
                 </h3>
+                <div data-intro class="intro-card">
                 <p class="mt-2.5 text-sm leading-relaxed text-ink-muted">
                   Care plans work on sites I didn&rsquo;t build too &mdash;
                   WordPress, Wix, or something hand-coded years ago. The first
@@ -5274,6 +6393,7 @@
                   Keeping your own hosting? The plan price stays the same
                   &mdash; managing your hosting panel is part of the work.
                 </p>
+                </div>
               </div>
             </div>
           </div>
@@ -5285,9 +6405,9 @@
               Three plans, flat monthly pricing
             </h3>
 
-            <div class="mt-6 grid gap-8 md:grid-cols-3">
+            <div class="plan-grid mt-6 grid gap-8 lg:grid-cols-3">
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -5296,7 +6416,7 @@
                     Essential
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $50<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -5457,7 +6577,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-8"
+                class="reveal flex flex-col rounded-md border-2 border-accent bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <div class="flex items-start justify-between gap-3">
@@ -5467,12 +6587,12 @@
                       Plus
                     </h4>
                     <span
-                      class="rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
+                      class="shrink-0 whitespace-nowrap rounded-full bg-accent px-3 py-1 font-display text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white"
                       >Most popular</span
                     >
                   </div>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $75<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -5623,7 +6743,7 @@
               </article>
 
               <article
-                class="reveal flex flex-col rounded-md border border-line bg-white p-8"
+                class="reveal flex flex-col rounded-md border border-line bg-white p-5 sm:p-8"
               >
                 <div class="flex flex-1 flex-col">
                   <h4
@@ -5632,7 +6752,7 @@
                     Complete
                   </h4>
                   <p
-                    class="mt-3 font-display text-4xl font-bold tracking-tight text-ink"
+                    class="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl"
                   >
                     $150<span
                       class="ml-2 font-sans text-sm font-medium text-ink-muted"
@@ -5792,16 +6912,14 @@
                 >Pay for a year, get 12 months for the price of 10</strong
               >
               &mdash; $500, $750 or $1,500 CAD, invoiced once. Every plan
-              starts with a 30-day money-back guarantee, and a single change
-              outside your plan is
-              <strong class="text-ink">$75 CAD flat</strong> while a new page is
-              <strong class="text-ink">$250 CAD flat</strong> &mdash; so one
-              spare change already costs more than a whole month of Essential.
+              carries a 30-day money-back guarantee; one change outside a plan
+              is <strong class="text-ink">$75 CAD flat</strong> and a new page
+              <strong class="text-ink">$250 CAD flat</strong>.
             </p>
           </div>
 
           <div class="mt-12 grid gap-8 lg:grid-cols-2">
-            <div class="reveal rounded-md border border-line bg-white p-8">
+            <div class="reveal rounded-md border border-line bg-white p-5 sm:p-8">
               <h3
                 class="font-display text-lg font-semibold tracking-tight text-ink"
               >
@@ -5956,7 +7074,7 @@
               </p>
             </div>
 
-            <div class="reveal rounded-md border border-line bg-white p-8">
+            <div class="reveal rounded-md border border-line bg-white p-5 sm:p-8">
               <h3
                 class="font-display text-lg font-semibold tracking-tight text-ink"
               >
@@ -6584,17 +7702,567 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               The whole price list, nothing hidden
             </h2>
 
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               Everything I charge for, in one place, so you never have to hunt
               through six sections to compare. All prices are in CAD, there is no
               setup fee anywhere, and nothing is added to an invoice without your
               OK first.
             </p>
+            </div>
+          </div>
+
+          <!-- Quote builder: the same published prices, but interactive -->
+          <div
+            id="quote-builder"
+            class="reveal mt-10 rounded-md border-2 border-accent bg-white p-6 sm:p-8"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3
+                class="font-display text-lg font-semibold tracking-tight text-ink"
+              >
+                Build your own quote
+              </h3>
+              <span
+                class="rounded-full bg-accent-soft px-3 py-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-accent-dark"
+                >Interactive &mdash; the same prices as above</span
+              >
+            </div>
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
+              Tick what you need and the bundle discounts apply themselves.
+              Send the quote and it lands in the contact form below, already
+              filled in &mdash; nothing is sent until you press Send Message.
+            </p>
+
+            <div class="mt-6 grid gap-6 lg:grid-cols-[3fr,2fr]">
+              <div class="grid gap-5 sm:grid-cols-2">
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Website
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >one-time</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-web"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No website</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-web"
+                          value="599"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="truncate">Starter, 1&ndash;2 pages</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$599</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-web"
+                          value="1199"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="truncate">Business, 4&ndash;5 pages</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$1,199</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-web"
+                          value="1999"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="truncate">Growth, 5&ndash;8 pages</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$1,999</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Online store
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >one-time</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-store"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No store</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-store"
+                          value="999"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Snipcart store</span>
+                          <span class="block text-[0.7rem] text-ink-muted">like the Orchard Lane demo</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$999</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-store"
+                          value="1200"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Shopify setup</span>
+                          <span class="block text-[0.7rem] text-ink-muted">quoted before starting</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">from $1,200</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-store"
+                          value="custom"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Fully custom store or site</span>
+                          <span class="block text-[0.7rem] text-ink-muted">like the STRATA demo &mdash; no budget cap</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">Quoted</span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Photography
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >one-time</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-photo"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No session</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-photo"
+                          value="299"
+                          data-bundle="249"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Session</span>
+                          <span class="block text-[0.7rem] text-ink-muted">bundled: $249</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$299</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-photo"
+                          value="499"
+                          data-bundle="429"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Half Day</span>
+                          <span class="block text-[0.7rem] text-ink-muted">bundled: $429</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$499</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-photo"
+                          value="999"
+                          data-bundle="849"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Content Day</span>
+                          <span class="block text-[0.7rem] text-ink-muted">bundled: $849</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$999</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Video shoot
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >one-time</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-video"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No video</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-video"
+                          value="449"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Reel Set, 3 videos</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$100 off with a site or a plan</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$449</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-video"
+                          value="749"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Reel Half Day, 6 videos</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$100 off with a site or a plan</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$749</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-video"
+                          value="1199"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">The Reel Full Day, 10&ndash;12</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$100 off with a site or a plan</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$1,199</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Content plan
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >monthly</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-content"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No content plan</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-content"
+                          value="449"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Starter, 8 posts</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$75/mo off with a website</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$449</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-content"
+                          value="949"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Momentum, 16 posts + videos</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$75/mo off with a website</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$949</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-content"
+                          value="1799"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Always On, 20&ndash;24 posts</span>
+                          <span class="block text-[0.7rem] text-ink-muted">$75/mo off with a website</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$1,799</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend
+                    class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+                  >
+                    Care plan
+                    <span
+                      class="font-sans text-xs font-normal normal-case tracking-normal text-ink-muted"
+                      >monthly</span
+                    >
+                  </legend>
+                  <div class="mt-3 space-y-2">
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-care"
+                          value="0"
+                          class="accent-[#1D4ED8]"
+                          checked
+                        />
+                        <span class="truncate text-ink-muted">No care plan</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">&mdash;</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-care"
+                          value="50"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="truncate">Essential</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$50</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-care"
+                          value="75"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="min-w-0">
+                          <span class="block truncate">Plus</span>
+                          <span class="block text-[0.7rem] text-ink-muted">first month included with Growth</span>
+                        </span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$75</span>
+                    </label>
+                    <label
+                      class="qb-option flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-line px-3.5 py-2.5 text-sm"
+                    >
+                      <span class="flex min-w-0 items-center gap-2.5">
+                        <input
+                          type="radio"
+                          name="qb-care"
+                          value="150"
+                          class="accent-[#1D4ED8]"
+                        />
+                        <span class="truncate">Complete</span>
+                      </span>
+                      <span class="shrink-0 font-display font-semibold text-ink">$150</span>
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+              <!-- Running total: updates itself as the radios change -->
+              <div
+                class="h-fit rounded-sm border border-accent/25 bg-accent-soft p-6 lg:sticky lg:top-24"
+              >
+                <p
+                  class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-accent-dark"
+                >
+                  Your quote
+                </p>
+                <dl class="mt-4 space-y-3 text-sm">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <dt class="text-ink-muted">One-time</dt>
+                    <dd
+                      id="qb-onetime"
+                      class="font-display text-2xl font-bold text-ink"
+                    >
+                      $0
+                    </dd>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-4">
+                    <dt class="text-ink-muted">Monthly</dt>
+                    <dd
+                      id="qb-monthly"
+                      class="font-display text-2xl font-bold text-ink"
+                    >
+                      $0
+                    </dd>
+                  </div>
+                  <div
+                    id="qb-savings-row"
+                    class="hidden items-baseline justify-between gap-4"
+                  >
+                    <dt class="text-ink-muted">Bundle savings</dt>
+                    <dd
+                      id="qb-savings"
+                      class="font-display text-lg font-semibold text-accent-dark"
+                    >
+                      &minus;$0
+                    </dd>
+                  </div>
+                </dl>
+                <p id="qb-note" class="mt-4 text-xs leading-relaxed text-ink-muted">
+                  Pick anything above and the maths updates itself &mdash;
+                  bundle discounts apply on their own.
+                </p>
+                <button
+                  id="qb-send"
+                  type="button"
+                  class="mt-6 inline-flex w-full items-center justify-center rounded-sm bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-accent-dark"
+                >
+                  Send this quote &rarr;
+                </button>
+                <p class="mt-3 text-[0.7rem] leading-relaxed text-ink-muted">
+                  Fills the contact form below with your picks &mdash; nothing
+                  is sent until you press Send Message.
+                </p>
+              </div>
+            </div>
           </div>
 
           <details class="reveal mt-10">
@@ -6607,7 +8275,7 @@
               </svg>
             </summary>
 
-          <div class="mt-12 grid gap-8 lg:grid-cols-3">
+          <div class="plan-grid mt-12 grid gap-8 lg:grid-cols-3">
             <div
               class="reveal rounded-md border border-line bg-white p-6 sm:p-7"
             >
@@ -6637,10 +8305,19 @@
                   <span class="text-ink-muted">Bilingual build</span>
                   <span class="font-display font-semibold text-ink">Quoted</span>
                 </li>
+                <li class="flex items-baseline justify-between gap-4 py-2.5">
+                  <span class="text-ink-muted"
+                    >Fully custom site &mdash; like the STRATA demo</span
+                  >
+                  <span class="font-display font-semibold text-ink">Quoted</span>
+                </li>
               </ul>
               <p class="mt-4 text-xs leading-relaxed text-ink-muted">
                 Domain roughly $15 to $25 a year, paid to the registrar in your
-                name. Hosting included while a care plan runs.
+                name. Hosting included while a care plan runs. Fully custom
+                builds like the STRATA demo in the Work section are quoted per
+                project &mdash; no budget cap, no template &mdash; and online
+                stores have their own prices in the out-of-plan list below.
               </p>
             </div>
 
@@ -6732,7 +8409,7 @@
             </div>
           </div>
 
-          <div class="mt-8 grid gap-8 lg:grid-cols-3">
+          <div class="plan-grid mt-8 grid gap-8 lg:grid-cols-3">
             <div
               class="reveal rounded-md border border-line bg-white p-6 sm:p-7"
             >
@@ -6870,8 +8547,36 @@
                   <span class="font-display font-semibold text-ink">$75</span>
                 </li>
                 <li class="flex items-baseline justify-between gap-4 py-2.5">
+                  <span class="min-w-0 text-ink-muted"
+                    >Online shop &mdash; Snipcart build
+                    <span class="term-wrap">
+                      <button type="button" class="term" aria-describedby="tip-shop-snipcart" aria-expanded="false" aria-label="Why the Snipcart shop build costs what it does"><span aria-hidden="true">?</span></button>
+                      <span id="tip-shop-snipcart" role="tooltip" class="term-tip">
+                        <strong>Why the shop costs less than a Business site:</strong> it is built on the ready-made storefront the Orchard Lane demo shows, and the hard part &mdash; checkout, payments and security &mdash; is run by Snipcart, whose fees and the card rates you pay directly, never marked up through me. Your product photos, descriptions and prices are loaded by you, or quoted separately. Custom payment and order work is the custom-build tier below.
+                      </span>
+                    </span>
+                  </span>
+                  <span class="font-display font-semibold text-ink">$999</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4 py-2.5">
                   <span class="text-ink-muted"
-                    >Shop, membership area or CRM build</span
+                    >Online shop &mdash; custom build</span
+                  >
+                  <span class="font-display font-semibold text-ink"
+                    >from $3,500</span
+                  >
+                </li>
+                <li class="flex items-baseline justify-between gap-4 py-2.5">
+                  <span class="text-ink-muted"
+                    >Online shop &mdash; Shopify setup</span
+                  >
+                  <span class="font-display font-semibold text-ink"
+                    >from $1,200</span
+                  >
+                </li>
+                <li class="flex items-baseline justify-between gap-4 py-2.5">
+                  <span class="text-ink-muted"
+                    >Membership area or CRM build</span
                   >
                   <span class="font-display font-semibold text-ink">Quoted</span>
                 </li>
@@ -6885,7 +8590,10 @@
               <p class="mt-4 text-xs leading-relaxed text-ink-muted">
                 Quoted work always starts with a flat number you approve, and
                 Complete includes one new page or section every quarter, so this
-                list rarely applies to anyone on a plan.
+                list rarely applies to anyone on a plan. Shop platform fees
+                &mdash; Snipcart&rsquo;s share, a Shopify plan, Stripe&rsquo;s
+                card rates &mdash; are pass-through costs paid by you at cost,
+                never marked up.
               </p>
             </div>
           </div>
@@ -6959,20 +8667,22 @@
             </p>
 
             <h2
-              class="reveal mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl"
+              class="reveal mt-5 font-display text-3xl font-semibold tracking-tight text-ink sm:text-5xl"
             >
               Get a free quote
             </h2>
-            <p class="reveal mt-5 text-lg leading-relaxed text-ink-muted">
+            <div data-intro>
+            <p class="reveal mt-5 text-base leading-relaxed sm:text-lg text-ink-muted">
               Tell me a little about your business and I&rsquo;ll reply within
               one business day with a flat price and a timeline &mdash; no
               obligation, no sales pressure.
             </p>
+            </div>
           </div>
 
-          <div class="mt-12 grid gap-12 lg:grid-cols-5 lg:gap-16">
+          <div class="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
             <!-- Netlify form -->
-            <div class="reveal lg:col-span-3">
+            <div class="reveal">
               <form
                 name="contact"
                 method="POST"
@@ -7070,6 +8780,17 @@
                     <option value="Growth website ($1,999)">
                       Growth website &mdash; $1,999
                     </option>
+                    <option value="Online store &mdash; Snipcart build ($999)">
+                      Online store &mdash; Snipcart build, $999
+                    </option>
+                    <option
+                      value="Online store &mdash; Shopify setup (from $1,200)"
+                    >
+                      Online store &mdash; Shopify setup, from $1,200
+                    </option>
+                    <option value="Fully custom site (quoted)">
+                      Fully custom site &mdash; like the STRATA demo, quoted
+                    </option>
                     <option value="Website plus photography">
                       Website plus photography
                     </option>
@@ -7080,6 +8801,23 @@
                     <option value="Content plan only">Content plan only</option>
                     <option value="Not sure yet">Not sure yet</option>
                   </select>
+                  <p class="mt-2 text-xs text-ink-muted">
+                    Selling online? The
+                    <a
+                      href="#work"
+                      class="font-medium text-accent underline-offset-4 transition hover:underline"
+                      >Orchard Lane demo</a
+                    >
+                    is a complete store built on Snipcart from $999, Shopify
+                    setups start at $1,200, and a fully custom build like the
+                    STRATA demo is quoted per project &mdash; every number is
+                    in the
+                    <a
+                      href="#prices"
+                      class="font-medium text-accent underline-offset-4 transition hover:underline"
+                      >price list</a
+                    >.
+                  </p>
                 </div>
 
                 <div class="mt-6">
@@ -7274,9 +9012,49 @@
             </div>
 
             <!-- Contact details -->
-            <div class="reveal lg:col-span-2">
+            <div
+              class="reveal rounded-md border border-line bg-white p-6 lg:sticky lg:top-24 lg:self-start"
+            >
               <h3
                 class="font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
+              >
+                What happens next
+              </h3>
+              <ol class="mt-4 space-y-4">
+                <li class="flex gap-3.5">
+                  <span
+                    class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-xs font-semibold text-accent-dark"
+                    >1</span
+                  >
+                  <p class="text-sm leading-relaxed text-ink-muted">
+                    You send this form &mdash; a couple of minutes, and nothing
+                    is charged.
+                  </p>
+                </li>
+                <li class="flex gap-3.5">
+                  <span
+                    class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-xs font-semibold text-accent-dark"
+                    >2</span
+                  >
+                  <p class="text-sm leading-relaxed text-ink-muted">
+                    I read it myself and reply within one business day with a
+                    flat price and a timeline.
+                  </p>
+                </li>
+                <li class="flex gap-3.5">
+                  <span
+                    class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-xs font-semibold text-accent-dark"
+                    >3</span
+                  >
+                  <p class="text-sm leading-relaxed text-ink-muted">
+                    If the number works, we have a short kickoff call and the
+                    build starts.
+                  </p>
+                </li>
+              </ol>
+
+              <h3
+                class="mt-8 font-display text-xs font-semibold uppercase tracking-[0.16em] text-ink-muted"
               >
                 Direct contact
               </h3>
@@ -7387,11 +9165,13 @@
       Section rail: moves to the previous or next page section using the same
       offset maths as the header menu. The buttons are disabled and made
       invisible at the first and last section, so nothing ever suggests a move
-      that cannot happen. Names come from the section markers.
+      that cannot happen. Names come from the section markers. Desktop only:
+      below 1024px the hamburger overlay replaces it, and the rail never
+      appears there (it stays `hidden` all the way through).
     -->
     <nav
       id="section-rail"
-      class="fixed bottom-5 right-3 z-40 flex flex-col gap-2 print:hidden lg:bottom-auto lg:right-6 lg:top-1/2 lg:-translate-y-1/2"
+      class="fixed bottom-5 right-3 z-40 hidden flex-col gap-2 print:hidden lg:bottom-auto lg:right-6 lg:top-1/2 lg:-translate-y-1/2 lg:flex"
       aria-label="Section navigation"
     >
       <button
@@ -7446,7 +9226,7 @@
     </nav>
 
     <!-- ============ FOOTER ============ -->
-    <footer class="bg-white">
+    <footer id="site-footer" class="bg-white">
       <div
         class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between"
       >
@@ -7508,44 +9288,336 @@
       </div>
     </footer>
 
+    <!-- ============ MOBILE FIXED CONTROLS (up to 1023px) ============
+         One thumb-sized CTA, always reachable, plus a back-to-top that
+         lives above it so the two can never overlap. Both are hidden on
+         the contact section and while the menu is open. -->
+    <a id="mobile-book" class="mobile-cta" href="#contact">
+      Book a session
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+    <button id="to-top" type="button" aria-label="Back to top">
+      <svg
+        class="h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 19V5M6 11l6-6 6 6" />
+      </svg>
+    </button>
+
     <script>
       (function () {
         "use strict";
 
-        /* 1. Mobile hamburger menu */
+        /* 1. Mobile navigation: a full-screen overlay whose list is built
+              from the page's own numbered section markers (01 — About …
+              08 — Contact), so order and numbering can never drift. Adds a
+              scroll-spy, an iOS-safe scroll lock, a focus trap and the four
+              ways out (item, backdrop, close button, Esc). */
         var toggle = document.getElementById("menu-toggle");
         var menu = document.getElementById("mobile-menu");
         var iconOpen = document.getElementById("icon-open");
         var iconClose = document.getElementById("icon-close");
-
-        function setMenu(isOpen) {
-          menu.classList.toggle("hidden", !isOpen);
-          iconOpen.classList.toggle("hidden", isOpen);
-          iconClose.classList.toggle("hidden", !isOpen);
-          toggle.setAttribute("aria-expanded", String(isOpen));
-          toggle.setAttribute(
-            "aria-label",
-            isOpen ? "Close navigation menu" : "Open navigation menu",
-          );
-          /* The rail floats over the page, so it goes away with the menu. */
-          var railEl = document.getElementById("section-rail");
-          if (railEl) {
-            railEl.classList.toggle("hidden", isOpen);
-          }
-        }
-
-        toggle.addEventListener("click", function () {
-          setMenu(menu.classList.contains("hidden"));
-        });
-
-        /* 2. Smooth scroll to anchor links */
-        var header = document.getElementById("site-header");
+        var menuClose = document.getElementById("mobile-menu-close");
+        var menuList = document.getElementById("mobile-menu-list");
+        var menuOpen = false;
+        var lockedY = 0;
+        var activeMenuId = null;
+        var menuSections = [];
         var reduceMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
 
+        /* The eyebrow of each section already reads "01 — About". One
+           source of truth, no second hand-written label list. */
+        function readSectionMarker(section) {
+          var paragraphs = section.querySelectorAll("p");
+          var i;
+          for (i = 0; i < paragraphs.length; i += 1) {
+            var text = paragraphs[i].textContent.replace(/\s+/g, " ").trim();
+            var match = text.match(/^(\d{2})\s*[\u2014\u2013-]\s*(.+)$/);
+            if (match) {
+              return { num: match[1], label: match[2] };
+            }
+          }
+          return null; /* the hero has no number and is not a nav item */
+        }
+
+        (function buildMobileMenu() {
+          if (!menu || !menuList) {
+            return;
+          }
+          Array.prototype.forEach.call(
+            document.querySelectorAll("main > section[id]"),
+            function (section) {
+              var marker = readSectionMarker(section);
+              if (!marker) {
+                return;
+              }
+              var item = {
+                id: section.id,
+                num: marker.num,
+                label: marker.label,
+                el: section,
+                link: null,
+              };
+              var li = document.createElement("li");
+              var link = document.createElement("a");
+              var index = document.createElement("span");
+              var label = document.createElement("span");
+              index.className = "mobile-menu-index";
+              index.setAttribute("aria-hidden", "true");
+              index.textContent = item.num;
+              label.textContent = item.label;
+              link.href = "#" + item.id;
+              link.setAttribute("data-menu-link", "");
+              link.appendChild(index);
+              link.appendChild(label);
+              link.addEventListener("click", function (event) {
+                event.preventDefault();
+                selectMenuItem(item);
+              });
+              li.appendChild(link);
+              menuList.appendChild(li);
+              item.link = link;
+              menuSections.push(item);
+            },
+          );
+          if (menuSections.length !== 8) {
+            console.warn(
+              "Mobile menu: expected 8 numbered sections, found " +
+                menuSections.length +
+                ". Check the section markers on the page.",
+            );
+          }
+        })();
+
+        function setActiveMenu(id) {
+          if (id === activeMenuId) {
+            return;
+          }
+          activeMenuId = id;
+          Array.prototype.forEach.call(menuSections, function (item) {
+            if (item.id === id) {
+              item.link.setAttribute("aria-current", "true");
+            } else {
+              item.link.removeAttribute("aria-current");
+            }
+          });
+        }
+
+        /* Called by the scroll loop when the page is at its very end: the
+           last section may never cross the middle band, so Contact wins. */
+        function markLastSectionActive() {
+          if (menuSections.length) {
+            setActiveMenu(menuSections[menuSections.length - 1].id);
+          }
+        }
+
+        function setToggleIcon(isOpen) {
+          if (iconOpen) {
+            iconOpen.classList.toggle("hidden", isOpen);
+          }
+          if (iconClose) {
+            iconClose.classList.toggle("hidden", !isOpen);
+          }
+        }
+
+        function openMenu() {
+          if (!menu || menuOpen) {
+            return;
+          }
+          menuOpen = true;
+          lockedY = window.pageYOffset || 0;
+          /* iOS ignores overflow:hidden on body; a fixed body is the lock
+             that actually holds, and lockedY puts the page back in place. */
+          document.body.style.position = "fixed";
+          document.body.style.top = -lockedY + "px";
+          document.body.style.left = "0";
+          document.body.style.right = "0";
+          document.body.style.width = "100%";
+          document.body.style.overflow = "hidden";
+          document.body.classList.add("menu-open");
+          menu.classList.add("is-open");
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Close navigation menu");
+          setToggleIcon(true);
+          menu.focus({ preventScroll: true });
+        }
+
+        function closeMenu(restoreFocus) {
+          if (!menu || !menuOpen) {
+            return;
+          }
+          menuOpen = false;
+          menu.classList.remove("is-open");
+          document.body.classList.remove("menu-open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open navigation menu");
+          setToggleIcon(false);
+          document.body.style.position = "";
+          document.body.style.top = "";
+          document.body.style.left = "";
+          document.body.style.right = "";
+          document.body.style.width = "";
+          document.body.style.overflow = "";
+          /* "instant" so a global scroll-behavior can never animate it. */
+          try {
+            window.scrollTo({ top: lockedY, left: 0, behavior: "instant" });
+          } catch (e) {
+            window.scrollTo(0, lockedY);
+          }
+          if (restoreFocus !== false) {
+            toggle.focus({ preventScroll: true });
+          }
+        }
+
+        /* Kept under the old name because the anchor handler and the
+           desktop rail already call setMenu(false). */
+        function setMenu(isOpen) {
+          if (isOpen) {
+            openMenu();
+          } else {
+            closeMenu(true);
+          }
+        }
+
+        function selectMenuItem(item) {
+          closeMenu(true);
+          /* The lock is released and the old position restored in this
+             frame; the next frame starts the smooth scroll, so the two
+             never fight over the scroll position. */
+          window.requestAnimationFrame(function () {
+            item.el.scrollIntoView({
+              behavior: reduceMotion ? "auto" : "smooth",
+              block: "start",
+            });
+          });
+        }
+
+        if (toggle) {
+          toggle.addEventListener("click", function () {
+            setMenu(!menuOpen);
+          });
+        }
+
+        if (menuClose) {
+          menuClose.addEventListener("click", function () {
+            closeMenu(true);
+          });
+        }
+
+        if (menu) {
+          /* A tap on the dark background (not on a control or a list item)
+             closes the menu. */
+          menu.addEventListener("click", function (event) {
+            if (
+              event.target &&
+              event.target.closest &&
+              event.target.closest("a, button")
+            ) {
+              return;
+            }
+            closeMenu(true);
+          });
+
+          /* Focus trap: Tab and Shift+Tab cycle inside the dialog. */
+          menu.addEventListener("keydown", function (event) {
+            if (event.key !== "Tab" || !menuOpen) {
+              return;
+            }
+            var focusables = menu.querySelectorAll(
+              'a[href], button:not([disabled])',
+            );
+            if (!focusables.length) {
+              return;
+            }
+            var first = focusables[0];
+            var last = focusables[focusables.length - 1];
+            if (
+              event.shiftKey &&
+              (document.activeElement === first ||
+                document.activeElement === menu)
+            ) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          });
+        }
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && menuOpen) {
+            event.preventDefault();
+            closeMenu(true);
+          }
+        });
+
+        /* If the window grows past the mobile breakpoint while the menu is
+           open, close it so the body does not stay locked behind a hidden
+           dialog. No focus return: the hamburger is not visible there. */
+        var desktopMq = window.matchMedia("(min-width: 1024px)");
+        function handleDesktopBreakpoint(event) {
+          if (event.matches) {
+            closeMenu(false);
+          }
+        }
+        if (desktopMq.addEventListener) {
+          desktopMq.addEventListener("change", handleDesktopBreakpoint);
+        } else if (desktopMq.addListener) {
+          desktopMq.addListener(handleDesktopBreakpoint);
+        }
+
+        /* Scroll-spy on IntersectionObserver. The hero is observed as well,
+           so scrolling back into it clears the highlight instead of leaving
+           the first section marked. */
+        if ("IntersectionObserver" in window && menuSections.length) {
+          var menuSpy = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) {
+                  return;
+                }
+                if (entry.target.id === "hero") {
+                  setActiveMenu(null);
+                  return;
+                }
+                var match = null;
+                Array.prototype.forEach.call(menuSections, function (item) {
+                  if (item.id === entry.target.id) {
+                    match = item;
+                  }
+                });
+                if (match) {
+                  setActiveMenu(match.id);
+                }
+              });
+            },
+            { rootMargin: "-45% 0px -45% 0px" },
+          );
+          Array.prototype.forEach.call(
+            document.querySelectorAll("main > section[id]"),
+            function (section) {
+              menuSpy.observe(section);
+            },
+          );
+        }
+
+        /* 2. Smooth scroll to anchor links. Menu items are excluded: they
+              close the dialog first and then use scrollIntoView, which
+              honours scroll-margin-top on the target. */
+        var header = document.getElementById("site-header");
+
         Array.prototype.forEach.call(
-          document.querySelectorAll('a[href^="#"]'),
+          document.querySelectorAll('a[href^="#"]:not([data-menu-link])'),
           function (link) {
             link.addEventListener("click", function (event) {
               var id = link.getAttribute("href");
@@ -7743,6 +9815,679 @@
 
           syncRail();
         }
+
+        /* 6. Live performance badge: this page's own real numbers.
+              The honest proof no page builder can copy — measured, not
+              promised, straight from the browser's Performance API. */
+        var perfBadge = document.getElementById("perf-badge");
+        if (perfBadge && "performance" in window) {
+          window.addEventListener("load", function () {
+            window.setTimeout(function () {
+              try {
+                var nav = performance.getEntriesByType("navigation")[0];
+                var seconds = nav
+                  ? (nav.loadEventEnd || nav.duration || 0) / 1000
+                  : 0;
+                var bytes = nav && nav.transferSize ? nav.transferSize : 0;
+                var requests = 1;
+                Array.prototype.forEach.call(
+                  performance.getEntriesByType("resource"),
+                  function (r) {
+                    requests += 1;
+                    bytes += r.transferSize || 0;
+                  },
+                );
+                var parts = [];
+                if (seconds > 0) {
+                  parts.push("loaded in " + seconds.toFixed(2) + "s");
+                }
+                if (bytes > 2048) {
+                  parts.push(
+                    Math.max(1, Math.round(bytes / 1024)) + " KB transferred",
+                  );
+                }
+                parts.push(requests + " requests");
+                perfBadge.textContent =
+                  "This page: " +
+                  parts.join(" \u00b7 ") +
+                  " \u2014 hand-coded, no page builder.";
+                perfBadge.classList.remove("hidden");
+              } catch (e) {
+                /* No badge rather than a wrong badge. */
+              }
+            }, 0);
+          });
+        }
+
+        /* 7. STRATA preview: the live site itself, embedded in a desktop
+              or a phone frame — the responsive layout re-flows for real
+              when the frame narrows. Both class sets live here so they
+              stay in sync. */
+        var strataFrame = document.getElementById("strata-frame");
+        var strataDeskBtn = document.getElementById("strata-desktop");
+        var strataPhoneBtn = document.getElementById("strata-phone");
+        if (strataFrame && strataDeskBtn && strataPhoneBtn) {
+          var strataChrome = document.getElementById("strata-chrome");
+          var strataView = document.getElementById("strata-view");
+          var strataBar = document.getElementById("strata-bar");
+          var strataNotch = document.getElementById("strata-notch");
+          var STRATA_BTN_ON =
+            "rounded-full border border-bronze bg-bronze px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-espresso transition hover:-translate-y-px";
+          var STRATA_BTN_OFF =
+            "rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-cream/70 transition hover:-translate-y-px hover:border-bronze/60 hover:text-cream";
+
+          function strataMode(phone) {
+            if (phone) {
+              strataFrame.className =
+                "group mx-auto block w-full max-w-[360px] overflow-hidden rounded-[2.2rem] border-4 border-white/15 bg-espresso shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-1 hover:border-bronze/50";
+              strataChrome.className =
+                "flex items-center border-b border-white/10 bg-white/5 px-4 py-2.5";
+              strataView.className =
+                "block h-[560px] w-full border-0 bg-espresso";
+              strataBar.classList.add("hidden");
+              strataNotch.classList.remove("hidden");
+            } else {
+              strataFrame.className =
+                "group block w-full overflow-hidden rounded-md border border-white/10 bg-espresso shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition duration-300 hover:-translate-y-1 hover:border-bronze/50";
+              strataChrome.className =
+                "flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3";
+              strataView.className =
+                "block h-[540px] w-full border-0 bg-espresso";
+              strataBar.classList.remove("hidden");
+              strataNotch.classList.add("hidden");
+            }
+            strataDeskBtn.className = phone ? STRATA_BTN_OFF : STRATA_BTN_ON;
+            strataPhoneBtn.className = phone ? STRATA_BTN_ON : STRATA_BTN_OFF;
+            strataDeskBtn.setAttribute("aria-pressed", String(!phone));
+            strataPhoneBtn.setAttribute("aria-pressed", String(phone));
+          }
+
+          strataDeskBtn.addEventListener("click", function () {
+            strataMode(false);
+            strataApplyPoster();
+          });
+          strataPhoneBtn.addEventListener("click", function () {
+            strataMode(true);
+            strataApplyPoster();
+          });
+
+          /* Mobile: the live frame is not loaded over cellular data by
+             default — a screenshot poster stands in, and one tap brings
+             the real site into the frame. Desktop loads it as before.
+             strataApplyPoster() is also called after strataMode(),
+             because strataMode rewrites the iframe's className. */
+          var strataPoster = document.getElementById("strata-poster");
+          var strataLoadBtn = document.getElementById("strata-load");
+          function strataApplyPoster() {
+            if (!strataPoster) {
+              return;
+            }
+            var mobile =
+              window.matchMedia &&
+              window.matchMedia("(max-width: 767px)").matches;
+            var hasSrc = !!strataView.getAttribute("src");
+            if (!mobile || hasSrc) {
+              strataPoster.classList.add("hidden");
+              strataView.classList.remove("hidden");
+              if (!hasSrc && strataView.getAttribute("data-src")) {
+                strataView.setAttribute(
+                  "src",
+                  strataView.getAttribute("data-src"),
+                );
+              }
+            } else {
+              strataView.classList.add("hidden");
+              strataPoster.classList.remove("hidden");
+            }
+          }
+          strataApplyPoster();
+          if (strataLoadBtn) {
+            strataLoadBtn.addEventListener("click", function () {
+              strataView.setAttribute(
+                "src",
+                strataView.getAttribute("data-src"),
+              );
+              strataApplyPoster();
+            });
+          }
+          if (window.matchMedia) {
+            var strataMq = window.matchMedia("(max-width: 767px)");
+            if (strataMq.addEventListener) {
+              strataMq.addEventListener("change", strataApplyPoster);
+            } else if (strataMq.addListener) {
+              strataMq.addListener(strataApplyPoster);
+            }
+          }
+        }
+
+        /* 8. Before / after slider */
+        var baWrap = document.getElementById("ba-wrap");
+        var baRange = document.getElementById("ba-range");
+        if (baWrap && baRange) {
+          baRange.addEventListener("input", function () {
+            baWrap.style.setProperty("--ba", baRange.value + "%");
+          });
+        }
+
+        /* 9. Mobile fixed controls: the sticky "Book a session" CTA, the
+              back-to-top arrow and the 3px scroll progress line. One passive
+              scroll listener, one requestAnimationFrame, and every layout
+              value cached outside the scroll loop. */
+        var progressBar = document.getElementById("scroll-progress-bar");
+        var bookCta = document.getElementById("mobile-book");
+        var toTop = document.getElementById("to-top");
+        var heroCta = document.getElementById("hero-cta");
+        var contactSection = document.getElementById("contact");
+        var contactForm = contactSection
+          ? contactSection.querySelector("form")
+          : null;
+        var mobileMq = window.matchMedia("(max-width: 1023px)");
+        var maxScroll = 1;
+        var viewportHeight = window.innerHeight;
+        var lastScrollY = window.pageYOffset || 0;
+        var measureQueued = false;
+        var scrollQueued = false;
+        var heroCtaVisible = true;
+        var contactVisible = false;
+        var formFocused = false;
+
+        function measurePage() {
+          measureQueued = false;
+          /* While the dialog is open the body is fixed, so the document is
+             only one screen tall — measuring then would cache nonsense. */
+          if (document.body.style.position === "fixed") {
+            return;
+          }
+          viewportHeight = window.innerHeight;
+          maxScroll = Math.max(
+            1,
+            (document.documentElement.scrollHeight || 0) - viewportHeight,
+          );
+          syncFixedControls();
+        }
+
+        function queueMeasure() {
+          if (measureQueued) {
+            return;
+          }
+          measureQueued = true;
+          window.requestAnimationFrame(measurePage);
+        }
+
+        function syncFixedControls() {
+          if (!bookCta || !toTop) {
+            return;
+          }
+          var mobile = mobileMq.matches;
+          var showCta =
+            mobile &&
+            !heroCtaVisible &&
+            !contactVisible &&
+            !formFocused &&
+            !menuOpen;
+          bookCta.classList.toggle("is-visible", showCta);
+          /* The arrow is only ever shown together with the CTA, and never
+             over the form, the footer or the dialog. */
+          var showTop =
+            showCta &&
+            lastScrollY > viewportHeight * 1.5 &&
+            lastScrollY < maxScroll - 2;
+          toTop.classList.toggle("is-visible", showTop);
+        }
+
+        function onPageScroll() {
+          if (scrollQueued) {
+            return;
+          }
+          scrollQueued = true;
+          window.requestAnimationFrame(function () {
+            scrollQueued = false;
+            lastScrollY = window.pageYOffset || 0;
+            if (progressBar) {
+              var progress = Math.min(
+                1,
+                Math.max(0, lastScrollY / maxScroll),
+              );
+              progressBar.style.transform = "scaleX(" + progress + ")";
+            }
+            /* Last two pixels: Contact is the current section even if its
+               middle never reaches the spy band. */
+            if (maxScroll > 0 && lastScrollY >= maxScroll - 2) {
+              markLastSectionActive();
+            }
+            syncFixedControls();
+          });
+        }
+
+        if (bookCta && toTop) {
+          window.addEventListener("scroll", onPageScroll, { passive: true });
+          window.addEventListener("resize", queueMeasure, { passive: true });
+          if ("ResizeObserver" in window) {
+            var pageResizeObserver = new ResizeObserver(queueMeasure);
+            pageResizeObserver.observe(document.body);
+          }
+          window.addEventListener("load", queueMeasure);
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(queueMeasure);
+          }
+          if (mobileMq.addEventListener) {
+            mobileMq.addEventListener("change", queueMeasure);
+          } else if (mobileMq.addListener) {
+            mobileMq.addListener(queueMeasure);
+          }
+          toTop.addEventListener("click", function () {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: reduceMotion ? "auto" : "smooth",
+            });
+          });
+          measurePage();
+          onPageScroll();
+        }
+
+        /* The CTA appears as soon as the hero's own primary button leaves
+           the viewport, and comes back when the visitor scrolls back up. */
+        if (heroCta && "IntersectionObserver" in window) {
+          new IntersectionObserver(
+            function (entries) {
+              heroCtaVisible = entries[0].isIntersecting;
+              syncFixedControls();
+            },
+            { threshold: 0 },
+          ).observe(heroCta);
+        } else {
+          heroCtaVisible = false;
+        }
+
+        /* Over the contact section (the form and the direct details) the
+           fixed controls get out of the way entirely. */
+        if (contactSection && "IntersectionObserver" in window) {
+          new IntersectionObserver(
+            function (entries) {
+              contactVisible = entries[0].isIntersecting;
+              syncFixedControls();
+            },
+            { threshold: 0 },
+          ).observe(contactSection);
+        }
+
+        /* Keyboard on a phone: while a field is focused, the CTA would sit on
+           top of the on-screen keyboard, so it hides until the field blurs. */
+        if (contactForm) {
+          contactForm.addEventListener("focusin", function () {
+            formFocused = true;
+            syncFixedControls();
+          });
+          contactForm.addEventListener("focusout", function (event) {
+            if (contactForm.contains(event.relatedTarget)) {
+              return;
+            }
+            formFocused = false;
+            syncFixedControls();
+          });
+        }
+
+        /* 10. Quote builder: the same published prices, but interactive.
+               Bundle discounts apply themselves, and Send this quote fills
+               the contact form's selects with matching values. */
+        var quoteBuilder = document.getElementById("quote-builder");
+        if (quoteBuilder) {
+          var qbOut = {
+            onetime: document.getElementById("qb-onetime"),
+            monthly: document.getElementById("qb-monthly"),
+            savingsRow: document.getElementById("qb-savings-row"),
+            savings: document.getElementById("qb-savings"),
+            note: document.getElementById("qb-note"),
+          };
+          var qbState = {};
+
+          function qbChecked(name) {
+            return quoteBuilder.querySelector(
+              'input[name="' + name + '"]:checked',
+            );
+          }
+          function qbMoney(n) {
+            return "$" + n.toLocaleString("en-CA");
+          }
+
+          function qbRecompute() {
+            var web = Number(qbChecked("qb-web").value);
+            var storeEl = qbChecked("qb-store");
+            var storeCustom = storeEl ? storeEl.value === "custom" : false;
+            var store = storeEl && !storeCustom ? Number(storeEl.value) : 0;
+            var photoEl = qbChecked("qb-photo");
+            var photoReg = Number(photoEl.value);
+            var photoBundle = Number(
+              photoEl.getAttribute("data-bundle") || photoReg,
+            );
+            var videoEl = qbChecked("qb-video");
+            var videoReg = Number(videoEl.value);
+            var contentEl = qbChecked("qb-content");
+            var contentReg = Number(contentEl.value);
+            var care = Number(qbChecked("qb-care").value);
+
+            var hasWeb = web > 0;
+            var hasContent = contentReg > 0;
+            var photo = photoReg ? (hasWeb ? photoBundle : photoReg) : 0;
+            var video = videoReg
+              ? videoReg - (hasWeb || hasContent ? 100 : 0)
+              : 0;
+            var content = contentReg ? contentReg - (hasWeb ? 75 : 0) : 0;
+
+            var oneTime = web + photo + video + store;
+            var monthly = content + care;
+            var savings =
+              (photoReg - photo) + (videoReg - video) + (contentReg - content);
+
+            qbState = {
+              web: web,
+              store: store,
+              storeCustom: storeCustom,
+              photoReg: photoReg,
+              photo: photo,
+              videoReg: videoReg,
+              video: video,
+              contentReg: contentReg,
+              content: content,
+              care: care,
+            };
+
+            qbOut.onetime.textContent = qbMoney(oneTime);
+            qbOut.monthly.textContent =
+              qbMoney(monthly) + (monthly ? "/mo" : "");
+            if (savings > 0) {
+              qbOut.savings.textContent =
+                "\u2212" +
+                qbMoney(savings) +
+                (contentReg - content > 0 ? "/mo" : "");
+              qbOut.savingsRow.classList.remove("hidden");
+              qbOut.savingsRow.classList.add("flex");
+            } else {
+              qbOut.savingsRow.classList.add("hidden");
+              qbOut.savingsRow.classList.remove("flex");
+            }
+
+            var notes = [];
+            if (photoReg && hasWeb) {
+              notes.push("photography at the bundled price");
+            }
+            if (videoReg && (hasWeb || hasContent)) {
+              notes.push("$100 off the video shoot");
+            }
+            if (contentReg && hasWeb) {
+              notes.push("$75 a month off the content plan");
+            }
+            qbOut.note.textContent = notes.length
+              ? "Bundle applied: " + notes.join(", ") + "."
+              : "Pick anything above and the maths updates itself \u2014 bundle discounts apply on their own.";
+            if (storeCustom) {
+              qbOut.note.textContent +=
+                " A fully custom store or site is quoted separately, so it is not part of the totals above.";
+            } else if (store === 1200) {
+              qbOut.note.textContent +=
+                " Shopify setup is quoted from $1,200 \u2014 the total uses the low end.";
+            }
+          }
+
+          Array.prototype.forEach.call(
+            quoteBuilder.querySelectorAll('input[type="radio"]'),
+            function (radio) {
+              radio.addEventListener("change", qbRecompute);
+            },
+          );
+          qbRecompute();
+
+          document
+            .getElementById("qb-send")
+            .addEventListener("click", function () {
+              var s = qbState;
+
+              /* Every value below matches an existing <option> in the
+                 contact form exactly, so nothing can land halfway. */
+              var projectType = document.getElementById("project-type");
+              if (s.web && s.photoReg) {
+                projectType.value = "Website plus photography";
+              } else if (s.web && s.contentReg) {
+                projectType.value = "Website plus a content plan";
+              } else if (s.store === 999) {
+                projectType.value = "Online store \u2014 Snipcart build ($999)";
+              } else if (s.store === 1200) {
+                projectType.value =
+                  "Online store \u2014 Shopify setup (from $1,200)";
+              } else if (s.storeCustom) {
+                projectType.value = "Fully custom site (quoted)";
+              } else if (s.web === 599) {
+                projectType.value = "Starter website ($599)";
+              } else if (s.web === 1199) {
+                projectType.value = "Business website ($1,199)";
+              } else if (s.web === 1999) {
+                projectType.value = "Growth website ($1,999)";
+              } else if (s.photoReg) {
+                projectType.value = "Photography only";
+              } else if (s.contentReg) {
+                projectType.value = "Content plan only";
+              } else {
+                projectType.value = "Not sure yet";
+              }
+
+              var photoSelect = document.getElementById("photography-addon");
+              if (s.photoReg === 299) {
+                photoSelect.value = s.web
+                  ? "The Session, bundled with a website ($249)"
+                  : "Photography only (from $299)";
+              } else if (s.photoReg === 499) {
+                photoSelect.value = s.web
+                  ? "The Half Day, bundled with a website ($429)"
+                  : "Photography only (from $299)";
+              } else if (s.photoReg === 999) {
+                photoSelect.value = s.web
+                  ? "The Content Day, bundled with a website ($849)"
+                  : "Photography only (from $299)";
+              } else {
+                photoSelect.value = "Website only";
+              }
+
+              var careSelect = document.getElementById("care-plan");
+              if (s.care === 50) {
+                careSelect.value = "Essential care plan ($50 CAD/month)";
+              } else if (s.care === 75) {
+                careSelect.value = "Plus care plan ($75 CAD/month)";
+              } else if (s.care === 150) {
+                careSelect.value = "Complete care plan ($150 CAD/month)";
+              } else {
+                careSelect.value = "One-time project";
+              }
+
+              var socialSelect = document.getElementById("social-plan");
+              if (s.contentReg === 449) {
+                socialSelect.value = "Starter content plan ($449 CAD/month)";
+              } else if (s.contentReg === 949) {
+                socialSelect.value = "Momentum content plan ($949 CAD/month)";
+              } else if (s.contentReg === 1799) {
+                socialSelect.value =
+                  "Always On content plan ($1,799 CAD/month)";
+              } else if (s.videoReg) {
+                socialSelect.value = "One-off video shoot (from $449)";
+              } else {
+                socialSelect.value = "No content plan";
+              }
+
+              var lines = [];
+              if (s.web) {
+                lines.push("Website: " + qbMoney(s.web));
+              }
+              if (s.store === 999) {
+                lines.push("Online store (Snipcart): " + qbMoney(999));
+              }
+              if (s.store === 1200) {
+                lines.push("Online store (Shopify): from " + qbMoney(1200));
+              }
+              if (s.storeCustom) {
+                lines.push("Fully custom store or site: quoted separately");
+              }
+              if (s.photoReg) {
+                lines.push(
+                  "Photography: " +
+                    qbMoney(s.photo) +
+                    (s.photo !== s.photoReg ? " (bundled)" : ""),
+                );
+              }
+              if (s.videoReg) {
+                lines.push("Video shoot: " + qbMoney(s.video));
+              }
+              if (s.contentReg) {
+                lines.push("Content plan: " + qbMoney(s.content) + "/month");
+              }
+              if (s.care) {
+                lines.push("Care plan: " + qbMoney(s.care) + "/month");
+              }
+              document.getElementById("message").value =
+                "Built with the quote builder:\n" +
+                (lines.length
+                  ? lines.join("\n")
+                  : "Not sure yet \u2014 help me choose.") +
+                "\n\nAbout my business: ";
+
+              var contactSection = document.getElementById("contact");
+              var top =
+                contactSection.getBoundingClientRect().top +
+                window.pageYOffset -
+                (header.offsetHeight + 16);
+              window.scrollTo({
+                top: Math.max(top, 0),
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
+              window.setTimeout(function () {
+                var nameField = document.getElementById("name");
+                if (nameField) {
+                  nameField.focus({ preventScroll: true });
+                }
+              }, reduceMotion ? 0 : 650);
+            });
+        }
+        /* 11. Phones: fold the long section intros behind one "Read more".
+               The paragraphs stay in the HTML and the clamp is applied by
+               this script only below 640px, so a failed script can never
+               hide a word of copy and a desktop never sees the button. */
+        var introMq = window.matchMedia
+          ? window.matchMedia("(max-width: 639px)")
+          : null;
+        var introBlocks = document.querySelectorAll("[data-intro]");
+
+        function introRefresh(block, button, open) {
+          var mobile = introMq ? introMq.matches : true;
+          var collapsed = mobile && !open;
+          block.classList.toggle("is-collapsed", collapsed);
+          button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+          var label = button.querySelector(".intro-toggle-label");
+          if (label) {
+            label.textContent = open ? "Show less" : "Read more";
+            var context = button.getAttribute("data-context") || "this section";
+            button.setAttribute(
+              "aria-label",
+              (open ? "Show less: " : "Read more: ") + context,
+            );
+          }
+          /* A button that reveals nothing is worse than no button: short
+             intros (Contact, the price list) fit in three lines, so the
+             toggle only exists where the copy is actually cut off. */
+          var lead = block.querySelector("p");
+          var extras = block.querySelectorAll(".is-intro-extra").length;
+          var truncated = lead ? lead.scrollHeight - lead.clientHeight > 2 : false;
+          /* The old test hid the control as soon as a single-paragraph
+             block was opened (truncated becomes false, extras is 0), which
+             left the copy expanded with no way back — measured on Work,
+             Services, Prices and Contact. `open` keeps it on screen. */
+          button.hidden = !(mobile && (extras > 0 || truncated || open));
+          if (open) {
+            block.classList.add("is-visible");
+            Array.prototype.forEach.call(
+              block.querySelectorAll(".reveal"),
+              function (item) {
+                item.classList.add("is-visible");
+              },
+            );
+          }
+        }
+
+        var introParts = [];
+
+        Array.prototype.forEach.call(introBlocks, function (block, index) {
+          var prose = [];
+          for (var i = 0; i < block.children.length; i++) {
+            if (block.children[i].tagName === "P") {
+              prose.push(block.children[i]);
+            }
+          }
+          if (!prose.length) {
+            return;
+          }
+          for (var j = 1; j < prose.length; j++) {
+            prose[j].classList.add("is-intro-extra");
+          }
+          if (!block.id) {
+            block.id = "intro-copy-" + (index + 1);
+          }
+          var button = document.createElement("button");
+          button.type = "button";
+          button.className = "intro-toggle";
+          button.setAttribute("aria-controls", block.id);
+          var owner = block.closest ? block.closest("section") : null;
+          var heading = owner ? owner.querySelector("h1, h2") : null;
+          var context = heading
+            ? heading.textContent.replace(/\s+/g, " ").trim()
+            : "this section";
+          button.setAttribute("data-context", context);
+          button.setAttribute("aria-label", "Read more: " + context);
+          var label = document.createElement("span");
+          label.className = "intro-toggle-label";
+          label.textContent = "Read more";
+          var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          icon.setAttribute("class", "intro-toggle-icon");
+          icon.setAttribute("viewBox", "0 0 24 24");
+          icon.setAttribute("fill", "none");
+          icon.setAttribute("stroke", "currentColor");
+          icon.setAttribute("stroke-width", "2");
+          icon.setAttribute("stroke-linecap", "round");
+          icon.setAttribute("stroke-linejoin", "round");
+          icon.setAttribute("aria-hidden", "true");
+          var iconPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          iconPath.setAttribute("d", "M6 9l6 6 6-6");
+          icon.appendChild(iconPath);
+          button.appendChild(label);
+          button.appendChild(icon);
+          block.parentNode.insertBefore(button, block.nextSibling);
+          var part = { block: block, button: button, open: false };
+          introParts.push(part);
+          introRefresh(part.block, part.button, part.open);
+          button.addEventListener("click", function () {
+            part.open = !part.open;
+            introRefresh(part.block, part.button, part.open);
+          });
+        });
+
+        function introApplyMq() {
+          Array.prototype.forEach.call(introParts, function (part) {
+            introRefresh(part.block, part.button, part.open);
+          });
+        }
+
+        if (introMq) {
+          if (introMq.addEventListener) {
+            introMq.addEventListener("change", introApplyMq);
+          } else if (introMq.addListener) {
+            introMq.addListener(introApplyMq);
+          }
+        }
+
+        /* Webfonts change how many lines the copy takes, so "is there
+           anything to reveal" is decided again once they land. */
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(introApplyMq);
+        }
+        window.addEventListener("load", introApplyMq);
+
       })();
     </script>
   </body>

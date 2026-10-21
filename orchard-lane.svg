@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Preview of the Orchard Lane Provisions online-store demo homepage">
+  <!-- Stylized preview of the demo store hero (the real page is HTML). -->
+  <rect width="800" height="450" fill="#FAF6EF"/>
+
+  <!-- Announcement bar -->
+  <rect width="800" height="24" fill="#2C4A34"/>
+  <text x="400" y="16" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" letter-spacing="1" fill="#FAF6EF" opacity="0.92">FREE DELIVERY ON ORDERS OVER $60 &#183; NEXT-DAY ACROSS NIAGARA &#183; PICKUP AT THE FARM STAND</text>
+
+  <!-- Header -->
+  <rect y="24" width="800" height="44" fill="#FFFFFF"/>
+  <line x1="0" y1="68" x2="800" y2="68" stroke="#E5DFD3"/>
+  <g transform="translate(24,33)">
+    <rect width="26" height="26" rx="6" fill="#2C4A34"/>
+    <path d="M13 5c1 2.7 3.7 3.8 3.7 6.7a3.7 3.7 0 1 1-7.4 0C9.3 8.8 12 7.7 13 5z" fill="#C6813F"/>
+    <path d="M13 5.8c-.8-1.4-2.4-1.8-3.7-1.6.6 1.4 2 2 3.7 1.6z" fill="#8FAE6B"/>
+  </g>
+  <text x="58" y="46" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#221F1A">Orchard Lane</text>
+  <text x="58" y="57" font-family="Inter, Arial, sans-serif" font-size="7" letter-spacing="2" fill="#6B675F">PROVISIONS</text>
+  <g font-family="Inter, Arial, sans-serif" font-size="9" fill="#6B675F">
+    <text x="580" y="50">Shop</text>
+    <text x="618" y="50">Our story</text>
+    <text x="682" y="50">Track order</text>
+    <text x="744" y="50">Contact</text>
+  </g>
+
+  <!-- Hero: left column -->
+  <g transform="translate(48,116)">
+    <rect width="196" height="21" rx="10" fill="#E8EEE6" stroke="#2C4A34" stroke-opacity="0.18"/>
+    <text x="13" y="14" font-family="Inter, Arial, sans-serif" font-size="8" letter-spacing="1.4" fill="#223A29">NIAGARA FARM MARKET &#183; ONLINE</text>
+    <text y="74" font-family="Georgia, serif" font-size="35" fill="#221F1A">The farm market,</text>
+    <text y="112" font-family="Georgia, serif" font-size="35" font-style="italic" fill="#2C4A34">open on your phone.</text>
+    <rect y="136" width="304" height="7" rx="3.5" fill="#6B675F" opacity="0.3"/>
+    <rect y="151" width="270" height="7" rx="3.5" fill="#6B675F" opacity="0.3"/>
+    <rect y="166" width="196" height="7" rx="3.5" fill="#6B675F" opacity="0.3"/>
+    <rect y="194" width="128" height="34" rx="3" fill="#2C4A34"/>
+    <text x="64" y="215" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#FAF6EF">Shop the market</text>
+    <rect x="138" y="194" width="118" height="34" rx="3" fill="none" stroke="#2C4A34"/>
+    <text x="197" y="215" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#2C4A34">How it works</text>
+  </g>
+
+  <!-- Hero: right column, product tiles -->
+  <!-- Honey jar -->
+  <g transform="translate(486,110) scale(0.66)">
+    <rect width="200" height="200" fill="#F7EBD2"/>
+    <rect x="70" y="34" width="60" height="14" rx="5" fill="#A8761F"/>
+    <rect x="60" y="48" width="80" height="112" rx="18" fill="#E0A93F"/>
+    <rect x="70" y="92" width="60" height="46" rx="6" fill="#A8761F"/>
+    <rect x="70" y="58" width="9" height="86" rx="4.5" fill="#fff" opacity="0.22"/>
+  </g>
+  <!-- Maple bottle -->
+  <g transform="translate(622,110) scale(0.66)">
+    <rect width="200" height="200" fill="#EDDCC8"/>
+    <rect x="86" y="28" width="28" height="13" rx="4" fill="#6B3D1D"/>
+    <rect x="91" y="41" width="18" height="21" fill="#9A5A2B"/>
+    <rect x="68" y="60" width="64" height="100" rx="20" fill="#9A5A2B"/>
+    <rect x="68" y="98" width="64" height="36" rx="4" fill="#6B3D1D"/>
+    <rect x="74" y="68" width="8" height="76" rx="4" fill="#fff" opacity="0.2"/>
+  </g>
+  <!-- Sourdough loaf -->
+  <g transform="translate(486,252) scale(0.66)">
+    <rect width="200" height="200" fill="#F3E9DA"/>
+    <rect x="46" y="90" width="108" height="56" rx="28" fill="#C98E4F"/>
+    <path d="M74 94q11 24 0 48" stroke="#8A5A2C" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M100 92q11 26 0 52" stroke="#8A5A2C" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M126 94q11 24 0 48" stroke="#8A5A2C" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Bouquet -->
+  <g transform="translate(622,252) scale(0.66)">
+    <rect width="200" height="200" fill="#F5EBDD"/>
+    <path d="M64 150h72l-36-42z" fill="#5C7A4A"/>
+    <path d="M70 156h60l-8 12H78z" fill="#5C7A4A" opacity="0.75"/>
+    <circle cx="72" cy="86" r="17" fill="#C97BA0"/>
+    <circle cx="128" cy="86" r="17" fill="#C97BA0"/>
+    <circle cx="100" cy="64" r="19" fill="#C97BA0"/>
+    <circle cx="86" cy="58" r="11" fill="#C97BA0" opacity="0.75"/>
+    <circle cx="114" cy="58" r="11" fill="#C97BA0" opacity="0.75"/>
+    <circle cx="72" cy="86" r="5.5" fill="#FAF6EF" opacity="0.9"/>
+    <circle cx="128" cy="86" r="5.5" fill="#FAF6EF" opacity="0.9"/>
+    <circle cx="100" cy="64" r="6" fill="#FAF6EF" opacity="0.9"/>
+  </g>
+
+  <!-- Tile borders, drawn over the art -->
+  <g fill="none" stroke="#E5DFD3">
+    <rect x="486" y="110" width="132" height="132" rx="10"/>
+    <rect x="622" y="110" width="132" height="132" rx="10"/>
+    <rect x="486" y="252" width="132" height="132" rx="10"/>
+    <rect x="622" y="252" width="132" height="132" rx="10"/>
+  </g>
+</svg>
